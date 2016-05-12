@@ -1,33 +1,48 @@
 
 /**
- * Write a description of class Player here.
+ * Details for the Player's avatar
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Ryan Lake
+ * @version 1.0
  */
 public class Player
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Player
-     */
-    public Player()
+    private String type;
+    private int hp;
+    private int str;
+    private int spd;
+    private int def;
+    private String[]items = new String[5];
+    
+    public Player(String t, int h, String[]i)
     {
-        // initialise instance variables
-        x = 0;
+        type = t;
+        if(type.equalsIgnoreCase("warrior"))
+        {
+            
+        }
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
+    
+    public void setItem(int p, String i)
     {
-        // put your code here
-        return x + y;
+        items[p] = i;
+    }
+    public String[] getItems()
+    {
+        return items;
+    }
+    
+    public void changeHp(int h)
+    {
+        hp+=h;
+    }
+    public int getHp()
+    {
+        return hp;
+    }
+    
+    public void setClass(String c)
+    {
+        
     }
 }
