@@ -19,7 +19,7 @@ public class Player
         type = t;
         if(type.equalsIgnoreCase("warrior"))
         {
-            
+            hp=10;
         }
     }
     
