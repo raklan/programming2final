@@ -19,8 +19,25 @@ public class Player
         type = t;
         if(type.equalsIgnoreCase("warrior"))
         {
-            hp=10;
+            hp=8;
+            str = 4;
+            def = 4;
+            spd = 4;
         }
+        else if(type.equalsIgnoreCase("Scout"))
+        {
+			hp = 8;
+			str = 3;
+			def = 3;
+			spd = 6;
+		}
+		else if(type.equalsIgnoreCase("Brute"))
+		{
+			hp = 10;
+			str = 5;
+			def = 3;
+			spd = 2;
+			}
     }
     
     public void setItem(int p, String i)
