@@ -11,7 +11,7 @@ public class Player{
     private int str;
     private int spd;
     private int def;
-    private String[]items = new String[5];
+    private Items[]items = new Items[5];
     
     public Player(String t, int h, String[]i){
         type = t;
@@ -43,10 +43,10 @@ public class Player{
 			System.out.println("Error: Not a Valid Class");
     }
     
-    public void setItem(int p, String i){
+    public void setItem(int p, Items i){
         items[p] = i;
     }
-    public String[] getItems(){
+    public Items[] getItems(){
         return items;
     }
     
