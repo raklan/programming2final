@@ -13,7 +13,7 @@ public class Player{
     private int def;
     private Items[]items = new Items[5];
     
-    public Player(String t, int h, String[]i){
+    public Player(String t, String[]i){
         type = t;
         if(type.equalsIgnoreCase("warrior")){
             hp=8;
@@ -42,7 +42,10 @@ public class Player{
 		else
 			System.out.println("Error: Not a Valid Class");
     }
+    public Player()
+    {
     
+    }
     public void setItem(int p, Items i){
         items[p] = i;
     }
