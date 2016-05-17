@@ -10,6 +10,7 @@ public class Game
 {
     static Scanner scan = new Scanner(System.in);
     static Player player;
+    
     public static void main(String[]args){
         Player info = new Player();
         String[]it = new String[5];
@@ -66,18 +67,22 @@ public class Game
             }
             if(choice.equalsIgnoreCase("about warrior"))
             {
+				System.out.println("");
                 System.out.println(info.getStats("warrior"));
                 choice = "";
             }
             else if(choice.equalsIgnoreCase("about scout")){
+				System.out.println("");
                 System.out.println(info.getStats("scout"));
                 choice="";
             }
             else if(choice.equalsIgnoreCase("about brute")){
+				System.out.println("");
                 System.out.println(info.getStats("brute"));
                 choice="";
             }
             else if(choice.equalsIgnoreCase("about tank")){
+				System.out.println("");
                 System.out.println(info.getStats("tank"));
                 choice="";
             }
