@@ -13,11 +13,11 @@ public class Game
     static Player player;
     static Map map = new Map();
     static String choice;
+    static String[]it = new String[5];
     static ArrayList<String> itemsFound = new ArrayList<String>();
 
     public static void main(String[]args){
         Player info = new Player();
-        String[]it = new String[5];
         boolean ok = false;
 
         System.out.println("Welcome to...");
@@ -121,7 +121,7 @@ public class Game
         
         moveRooms();
         
-        
+        executeRoom();
     }
 
     public static void moveRooms()
@@ -157,6 +157,12 @@ public class Game
             }
         }while(!leftRoom);
         map.printMap();
+    }
+    public static void executeRoom()
+    {
+        Monster monster;
+        if((map.getRow()==1&&map.getCol()==0)||(map.getRow()==1&&map.getCol()==1)||(map.getRow()==0&&map.getCol()==1))
+            monster = new Monster("1",0,it);
     }
 }
 
