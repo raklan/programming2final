@@ -43,13 +43,4 @@ public class Items
 	}
 	
 	
-	public static void main(String[]args)
-	{
-			Items axe = new Items(3, 0, 0, 0, "A Powerful Battleaxe", "Axe");
-			Items IronChestplate = new Items(0, 0, 3, 1, "A Sturdy Iron Chestplate", "Iron Chestplate");
-			Items woodShield = new Items(0, 0, 1, 0, "A Flimsy Wooden Shield", "Wooden Shield");
-			Items bow = new Items(2, -1, 0, 0, "An old bow", "Bow");
-			Items longBow = new Items(5, -1, -1, 0, "A powerful Longbow", "Longbow");
-			Items magicShield = new Items(0, 1, 5, 4, "A Mysterious Magical Shield", "Magical Shield");
-	}
 }
