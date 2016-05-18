@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
 /**
  * Write a description of class Game here.
  * 
@@ -10,14 +11,15 @@ public class Game
 {
     static Scanner scan = new Scanner(System.in);
     static Player player;
-    
+    static Map map = new Map();
+    static String choice;
+    static String[]it = new String[5];
+    static ArrayList<String> itemsFound = new ArrayList<String>();
+
     public static void main(String[]args){
         Player info = new Player();
-        String[]it = new String[5];
-        String choice;
         boolean ok = false;
-        
-        
+
         System.out.println("Welcome to...");
         System.out.println("               ========    |     |    |=====");
         System.out.println("                  ||       |     |    |");
@@ -60,6 +62,11 @@ public class Game
                 System.out.println("And don't worry, you keep all items you find, so you can mix and match to find what suits you best!");
                 System.out.println("  *Note: Potions do not count towards you 5 items total.");
                 System.out.println("");
+                System.out.println("ABOUT THE MAP:");
+                System.out.println("Type 'map' at any time to see the map!");
+                System.out.println("The final boss is at the bottom right corner, marked by 'X'");
+                System.out.println("Your location is marked by 'O'");
+                System.out.println("");
                 System.out.println("Ready? I hope you are! Choose your class:");
                 System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
                 System.out.println("Or type 'about (insert class here)' to see that class's stats");
@@ -67,22 +74,22 @@ public class Game
             }
             if(choice.equalsIgnoreCase("about warrior"))
             {
-				System.out.println("");
+                System.out.println("");
                 System.out.println(info.getStats("warrior"));
                 choice = "";
             }
             else if(choice.equalsIgnoreCase("about scout")){
-				System.out.println("");
+                System.out.println("");
                 System.out.println(info.getStats("scout"));
                 choice="";
             }
             else if(choice.equalsIgnoreCase("about brute")){
-				System.out.println("");
+                System.out.println("");
                 System.out.println(info.getStats("brute"));
                 choice="";
             }
             else if(choice.equalsIgnoreCase("about tank")){
-				System.out.println("");
+                System.out.println("");
                 System.out.println(info.getStats("tank"));
                 choice="";
             }
@@ -108,6 +115,54 @@ public class Game
                 choice = "";
             }
         }while(!ok);
-        System.out.println(player.getHp());
+        map.enterRoom(0,0);
+        System.out.println();
+        map.printMap();
+        
+        moveRooms();
+        
+        executeRoom();
+    }
+
+    public static void moveRooms()
+    {
+        boolean leftRoom = false;
+        do{
+            try{
+                System.out.println("Which way would you like to go? (U/D/L/R)");
+                choice = scan.nextLine();
+                if(choice.equalsIgnoreCase("U")){
+                    map.leaveRoom(map.getRow(),map.getCol());
+                    map.enterRoom(map.getRow()-1,map.getCol());
+                    leftRoom = true;
+                }
+                else if(choice.equalsIgnoreCase("D")){
+                    map.leaveRoom(map.getRow(),map.getCol());
+                    map.enterRoom(map.getRow()+1,map.getCol());
+                    leftRoom = true;
+                }
+                else if(choice.equalsIgnoreCase("L")){
+                    map.leaveRoom(map.getRow(),map.getCol());
+                    map.enterRoom(map.getRow(),map.getCol()-1);
+                    leftRoom = true;
+                }
+                else if(choice.equalsIgnoreCase("R")){
+                    map.leaveRoom(map.getRow(),map.getCol());
+                    map.enterRoom(map.getRow(),map.getCol()+1);
+                    leftRoom = true;
+                }
+            }catch(ArrayIndexOutOfBoundsException e){
+                System.out.println("You can't go that way!");  
+                leftRoom = false;
+            }
+        }while(!leftRoom);
+        map.printMap();
+    }
+    public static void executeRoom()
+    {
+        Monster monster;
+        if((map.getRow()==1&&map.getCol()==0)||(map.getRow()==1&&map.getCol()==1)||(map.getRow()==0&&map.getCol()==1))
+            monster = new Monster("1",0,it);
     }
 }
+
