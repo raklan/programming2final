@@ -160,7 +160,8 @@ public class Game
     }
     public static void executeRoom()
     {
-        Monster monster = new Monster(1,"Spider");
+        Monster monster = new Monster(0,"Hello");
+        monster = map.spawnMonster(map);
         System.out.println("A "+monster.getName()+" appeared");
     }
 }
