@@ -160,9 +160,8 @@ public class Game
     }
     public static void executeRoom()
     {
-        Monster monster;
-        if((map.getRow()==1&&map.getCol()==0)||(map.getRow()==1&&map.getCol()==1)||(map.getRow()==0&&map.getCol()==1))
-            monster = new Monster("1",0,it);
+        Monster monster = new Monster(1,"Spider");
+        System.out.println("A "+monster.getName()+" appeared");
     }
 }
 

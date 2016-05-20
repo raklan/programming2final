@@ -62,6 +62,18 @@ public class Map
     {
         map[row][col] = false;
     }
+    
+    public Monster spawnMonster(Map map)
+	{
+		
+		Monster monster = new Monster(0);
+        if((map.getRow()==1&&map.getCol()==0)||(map.getRow()==1&&map.getCol()==1)||(map.getRow()==0&&map.getCol()==1))
+            monster = new Monster(1);
+        else if((map.getRow()==2&&map.getCol()==0)||(map.getRow()==2&&map.getCol()==1)||(map.getRow()==2&&map.getCol()==2)||(map.getRow()==1&&map.getCol()==2)||(map.getRow()==0&&map.getCol()==2))
+			monster = new Monster(2);
+			
+			return monster;
+		}
 
     public void printMap()
     {
