@@ -162,6 +162,7 @@ public class Game
     public static void executeRoom()
     {
         Monster monster = new Monster(1);
+        monster=monster.spawnMonster(monster);
         System.out.println("A "+monster.getName()+" appeared");
     }
 }

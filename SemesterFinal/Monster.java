@@ -18,15 +18,19 @@ public class Monster
     public Monster(int m)
     {
         kind = m;
-        
+        health = 1;
+        strength= 0;
+        speed= 0;
+        defense= 0;
+        name = " ";
+
     }
-   
     public Monster spawnMonster(Monster m)
     {
         niceHair=false;
         Random gen = new Random();
         monsters = gen.nextInt(2);
-        
+
         do{
 
             if(kind==1)
@@ -39,6 +43,7 @@ public class Monster
                         defense = 1;
                         speed = 1;
                         name = "Spider";
+                        niceHair=true;
                     }
                     else if(monsters==1)
                     {
@@ -47,6 +52,7 @@ public class Monster
                         defense = 1;
                         speed = 1;
                         name="Scorpion";
+                        niceHair=true;
                     } 
                     else
                         System.out.println("Error: Not a Valid Monster");
@@ -62,6 +68,7 @@ public class Monster
                         defense = 2;
                         speed = 2;
                         name="Troll";
+                        niceHair=true;
                     }
                     else if(monsters==1)
                     {
@@ -70,6 +77,7 @@ public class Monster
                         defense = 3;
                         speed =1;
                         name="Giant";
+                        niceHair=true;
                     }
                     else
                         System.out.println("Error: Not a Valid Monster");
@@ -85,6 +93,7 @@ public class Monster
                         defense=2;
                         speed=3;
                         name="Skeleton Pirate";
+                        niceHair=true;
                     }
                     if(monsters==1)
                     {
@@ -93,6 +102,7 @@ public class Monster
                         defense=3;
                         speed=2;
                         name="Apperition";
+                        niceHair=true;
                     }
                     else
                         System.out.println("Error: Not a Valid Monster");
@@ -101,7 +111,7 @@ public class Monster
             else if(kind==4)
             {
                 do{
-                   
+
                     if(monsters==0)
                     {
                         health=10;
@@ -109,7 +119,7 @@ public class Monster
                         defense = 2;
                         speed = 3;
                         name="Garrett";
-                        
+                        niceHair=true;
                     }
                     else if(monsters==1)
                     {
@@ -118,6 +128,7 @@ public class Monster
                         defense = 3;
                         speed = 1;
                         name="Orc";
+                        niceHair=true;
                     }
                     else
                         System.out.println("Error: Not a Valid Monster");
@@ -126,7 +137,7 @@ public class Monster
             else if(kind==5)
             {
                 do{
-                   
+
                     if(monsters==0)
                     {
                         health=7;
@@ -134,6 +145,7 @@ public class Monster
                         defense = 8;
                         speed = 3;
                         name="Undead Foot Soldier";
+                        niceHair=true;
                     }
                     else if(monsters==1)
                     {
@@ -142,6 +154,7 @@ public class Monster
                         defense = 4;
                         speed = 7;
                         name="Hell GateKeeper";
+                        niceHair=true;
                     }
                     else
                         System.out.println("Error: Not a Valid Monster");
@@ -150,9 +163,9 @@ public class Monster
         }while(!niceHair);
         return m;
     }
-    
+
     public String getName()
     {
         return name;
-        }
+    }
 }
