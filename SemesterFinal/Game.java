@@ -13,8 +13,10 @@ public class Game
     static Player player;
     static Map map = new Map();
     static String choice;
-    static String[]it = new String[5];
+    static Items[]it = new Items[5];
     static ArrayList<String> itemsFound = new ArrayList<String>();
+
+    static boolean isDead = false;
 
     public static void main(String[]args){
         Player info = new Player();
@@ -95,6 +97,8 @@ public class Game
             }
             else if(choice.equalsIgnoreCase("warrior")){
                 player = new Player("warrior",it);
+                Items sword = new Items(1,0,0,0,"A Simple Wooden Sword","Wooden Sword");
+                player.setItem(0, sword);
                 ok = true;
             }
             else if(choice.equalsIgnoreCase("scout")){
@@ -161,9 +165,142 @@ public class Game
 
     public static void executeRoom()
     {
+
+        it = player.getItems();
+        Random gen = new Random();
+        int whoAttacks = 2;
+        int canRun = 0;
+        boolean ran = false;
+        int dmgDone = 0;
+        int dmgTaken = 0;
+        int strModifier = 0;
+        int spdModifier = 0;
+        int defModifier = 0;
+
         Monster monster = new Monster(1);
         monster=monster.spawnMonster(monster);
+
         System.out.println("A "+monster.getName()+" appeared");
+
+        System.out.println("Get Ready to Battle");
+        do{
+            if(player.getSpd()>monster.getSpeed()){
+                System.out.println("You are attacking!");
+                System.out.println("What do you want to do? (Attack, Run)");
+                choice = scan.nextLine();
+                if(choice.equalsIgnoreCase("Attack"))
+                {
+                    for(int i = 0;i<it.length;i++){
+                        if(it[i]!=null){
+                            if(it[i].getStr()>0){
+                                strModifier+=it[i].getStr();
+                            }
+                        }
+                    }
+                    dmgDone+=player.getStr();
+                    dmgDone+=strModifier;
+                    dmgDone-=monster.getDef();
+                    dmgDone = dmgDone*-1;
+                    monster.setHP(dmgDone);
+                    System.out.println("The monster has "+monster.getHP()+" health remaining.");
+                    dmgDone=0;
+                    strModifier = 0;
+                    if(monster.getHP()<=0)
+                    {
+                        System.out.println("You defeated the "+monster.getName()+"!");
+                    }
+                    System.out.println("The "+monster.getName()+" attacks!");
+                    for(int i = 0;i<it.length;i++){
+                        if(it[i]!=null){
+                            if(it[i].getDef()>0){
+                                defModifier+=it[i].getDef();
+                            }
+                        }
+                    }
+                    dmgTaken=monster.getStr();
+                    dmgTaken-=player.getDef();
+                    dmgTaken-=defModifier;
+                    if(dmgTaken<1)
+                        dmgTaken=1;
+                    dmgTaken=dmgTaken*-1;                
+                    player.changeHp(dmgTaken);
+                    System.out.println("You have "+player.getHp()+" HP remaining");
+                    dmgTaken = 0;
+                    defModifier = 0;
+                    if(player.getHp()<=0)
+                        System.out.println("You were defeated...");
+                }
+                else if(choice.equalsIgnoreCase("Run"))
+                {
+                    canRun = gen.nextInt(2);
+                    if(canRun==0)
+                        System.out.println("Couldn't Run!");
+                    else if(canRun==1){
+                        System.out.println("Barely got away!");
+                        ran = true;
+                    }
+                }
+                else
+                    System.out.println("Not a valid choice! You lose your turn!");
+            }
+            else if(player.getSpd()<monster.getSpeed()){
+                System.out.println("The "+monster.getName()+" attacks!");
+                for(int i = 0;i<it.length;i++){
+                    if(it[i]!=null){
+                        if(it[i].getDef()>0){
+                            defModifier+=it[i].getDef();
+                        }
+                    }
+                }
+                dmgTaken=monster.getStr();
+                dmgTaken-=player.getDef();
+                dmgTaken-=defModifier;
+                if(dmgTaken<1)
+                    dmgTaken=1;
+                dmgTaken=dmgTaken*-1;                
+                player.changeHp(dmgTaken);
+                System.out.println("You have "+player.getHp()+" HP remaining");
+                dmgTaken = 0;
+                defModifier = 0;
+                if(player.getHp()<=0)
+                    System.out.println("You were defeated...");
+
+                System.out.println("You are attacking!");
+                System.out.println("What do you want to do? (Attack, Run)");
+                choice = scan.nextLine();
+                for(int i = 0;i<it.length;i++){
+                    if(it[i]!=null){
+                        if(it[i].getStr()>0){
+                            strModifier+=it[i].getStr();
+                        }
+                    }
+                }
+                dmgDone+=player.getStr();
+                dmgDone+=strModifier;
+                dmgDone-=monster.getDef();
+                dmgDone = dmgDone*-1;
+                monster.setHP(dmgDone);
+                System.out.println("The monster has "+monster.getHP()+" health remaining.");
+                dmgDone=0;
+                strModifier = 0;
+                if(monster.getHP()<=0)
+                {
+                    System.out.println("You defeated the "+monster.getName()+"!");
+                }
+            }
+            else if(choice.equalsIgnoreCase("Run"))
+            {
+                canRun = gen.nextInt(2);
+                if(canRun==0)
+                    System.out.println("Couldn't Run!");
+                else if(canRun==1){
+                    System.out.println("Barely got away!");
+                    ran = true;
+                }
+            }
+            else
+                System.out.println("Not a valid choice! You lose your turn!");
+        }while(player.getHp()>0&&monster.getHP()>0&&!ran);
     }
 }
 

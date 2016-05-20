@@ -7,40 +7,44 @@
  */
 public class Items
 {
-    private int dmg;
+    private int str;
     private int spd;
     private int def;
     private int hp;
     private String description;
     private String name;
-    
+
     public Items(int dg, int s, int df, int h, String d, String n){
-		dmg = dg;
-		spd = s;
-		def = df;
-		hp = h;
-		description = d;
-		name = n;
-	}
-	
-	public int getDmg(){
-			return dmg;
-	}
-	public int getSpd(){
-			return spd;
-	}
-	public int getDef(){
-			return def;
-	}
-	public int getHp(){
-			return hp;
-	}
-	public String getDescription(){
-			return description;
-	}
-	public String getName(){
-			return name;
-	}
-	
-	
+        str = dg;
+        spd = s;
+        def = df;
+        hp = h;
+        description = d;
+        name = n;
+    }
+
+    public int getStr(){
+        return str;
+    }
+
+    public int getSpd(){
+        return spd;
+    }
+
+    public int getDef(){
+        return def;
+    }
+
+    public int getHp(){
+        return hp;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String getName(){
+        return name;
+    }
+
 }

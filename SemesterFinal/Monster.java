@@ -25,6 +25,7 @@ public class Monster
         name = " ";
 
     }
+
     public Monster spawnMonster(Monster m)
     {
         niceHair=false;
@@ -160,7 +161,7 @@ public class Monster
                         System.out.println("Error: Not a Valid Monster");
                 }while(!niceHair);
             }
-             else if(kind==6)
+            else if(kind==6)
             {
                 do{
                     if(monsters==0)
@@ -494,26 +495,32 @@ public class Monster
         }while(!niceHair);
         return m;
     }
+
     public void setHP(int h)
     {
         health+=h;
     }
+
     public int getHP()
     {
         return health;
     }
+
     public int getStr()
     {
         return strength;
     }
-     public int getSpeed()
+
+    public int getSpeed()
     {
         return speed;
     }
-     public int getDef()
+
+    public int getDef()
     {
         return defense;
     }
+
     public String getName()
     {
         return name;
