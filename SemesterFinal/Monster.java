@@ -15,7 +15,7 @@ public class Monster
     private int strength;
     private int speed;
     private int defense;
-    public Monster(int m, String n){
+    public Monster(int m){
         kind=m;
         niceHair=false;
         Random gen = new Random();
@@ -28,18 +28,18 @@ public class Monster
                 do{
                     if(monsters==0)
                     {
-                        health = 4;
+                        health = 1;
                         strength =2 ;
                         defense = 1;
-                        speed = 3;
+                        speed = 1;
                         name = "Spider";
                     }
                     else if(monsters==1)
                     {
-                        health=4;
-                        strength = 3;
+                        health=2;
+                        strength = 1;
                         defense = 1;
-                        speed = 2;
+                        speed = 1;
                         name="Scorpion";
                     } 
                     else
