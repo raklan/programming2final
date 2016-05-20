@@ -1,6 +1,8 @@
 #BlueJ class context
 comment0.params=m
 comment0.target=Monster(int)
-comment1.params=
-comment1.target=java.lang.String\ getName()
-numComments=2
+comment1.params=m
+comment1.target=Monster\ spawnMonster(Monster)
+comment2.params=
+comment2.target=java.lang.String\ getName()
+numComments=3

@@ -15,8 +15,14 @@ public class Monster
     private int strength;
     private int speed;
     private int defense;
-    public Monster(int m){
-        kind=m;
+    public Monster(int m)
+    {
+        kind = m;
+        
+    }
+   
+    public Monster spawnMonster(Monster m)
+    {
         niceHair=false;
         Random gen = new Random();
         monsters = gen.nextInt(2);
@@ -51,18 +57,18 @@ public class Monster
                 do{
                     if(monsters==0)
                     {
-                        health=5;
-                        strength = 4;
-                        defense = 6;
-                        speed = 10;
+                        health=3;
+                        strength = 3;
+                        defense = 2;
+                        speed = 2;
                         name="Troll";
                     }
                     else if(monsters==1)
                     {
-                        health=12;
-                        strength = 9;
-                        defense = 4;
-                        speed = 2;
+                        health=4;
+                        strength = 2;
+                        defense = 3;
+                        speed =1;
                         name="Giant";
                     }
                     else
@@ -75,17 +81,17 @@ public class Monster
                     if(monsters==0)
                     {
                         health=5;
-                        strength=8;
-                        defense=3;
-                        speed=7;
+                        strength=5;
+                        defense=2;
+                        speed=3;
                         name="Skeleton Pirate";
                     }
                     if(monsters==1)
                     {
-                        health=3;
-                        strength=9;
-                        defense=1;
-                        speed=6;
+                        health=8;
+                        strength=2;
+                        defense=3;
+                        speed=2;
                         name="Apperition";
                     }
                     else
@@ -98,19 +104,19 @@ public class Monster
                    
                     if(monsters==0)
                     {
-                        health=5;
-                        strength = 4;
-                        defense = 6;
-                        speed = 10;
+                        health=10;
+                        strength = 5;
+                        defense = 2;
+                        speed = 3;
                         name="Garrett";
                         
                     }
                     else if(monsters==1)
                     {
-                        health=12;
-                        strength = 9;
-                        defense = 4;
-                        speed = 2;
+                        health=8;
+                        strength = 7;
+                        defense = 3;
+                        speed = 1;
                         name="Orc";
                     }
                     else
@@ -125,8 +131,8 @@ public class Monster
                     {
                         health=7;
                         strength = 7;
-                        defense = 10;
-                        speed = 6;
+                        defense = 8;
+                        speed = 3;
                         name="Undead Foot Soldier";
                     }
                     else if(monsters==1)
@@ -142,11 +148,11 @@ public class Monster
                 }while(!niceHair);
             }
         }while(!niceHair);
-
-	}
-	
-	public String getName()
-	{
-		return name;
-		}
+        return m;
+    }
+    
+    public String getName()
+    {
+        return name;
+        }
 }
