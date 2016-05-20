@@ -163,7 +163,22 @@ public class Monster
         }while(!niceHair);
         return m;
     }
-
+    public int getHP()
+    {
+        return health;
+    }
+    public int getStr()
+    {
+        return strength;
+    }
+     public int getSpeed()
+    {
+        return speed;
+    }
+     public int getDef()
+    {
+        return defense;
+    }
     public String getName()
     {
         return name;
