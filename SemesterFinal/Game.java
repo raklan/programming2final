@@ -118,9 +118,9 @@ public class Game
         map.enterRoom(0,0);
         System.out.println();
         map.printMap();
-        
+
         moveRooms();
-        
+
         executeRoom();
     }
 
@@ -158,10 +158,10 @@ public class Game
         }while(!leftRoom);
         map.printMap();
     }
+
     public static void executeRoom()
     {
-        Monster monster = new Monster(0,"Hello");
-        monster = map.spawnMonster(map);
+        Monster monster = new Monster(1);
         System.out.println("A "+monster.getName()+" appeared");
     }
 }
