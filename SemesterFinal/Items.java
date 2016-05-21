@@ -46,5 +46,8 @@ public class Items
     public String getName(){
         return name;
     }
-
+	
+	public String getStats(Items i){
+		return "The "+i.getName()+": \n "+ i.getDescription()+" \n Damage: "+i.getStr()+" \n Speed: "+i.getSpd()+" \n Defense: "+i.getDef()+" \n HP: "+i.getHp()+" ";
+		}
 }

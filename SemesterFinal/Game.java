@@ -14,11 +14,13 @@ public class Game
     static Map map = new Map();
     static String choice;
     static Items[]it = new Items[5];
+    static ArrayList<Items> allItems = new ArrayList<Items>();
     static ArrayList<String> itemsFound = new ArrayList<String>();
 
     static boolean isDead = false;
 
     public static void main(String[]args){
+		createAllItems();
         Player info = new Player();
         boolean ok = false;
 
@@ -124,7 +126,8 @@ public class Game
         map.printMap();
 
         moveRooms();
-
+		
+		
         executeRoom();
     }
 
@@ -176,6 +179,8 @@ public class Game
         int strModifier = 0;
         int spdModifier = 0;
         int defModifier = 0;
+        
+        //---------------FIGHTING----------------------
 
         Monster monster = new Monster(1);
         monster=monster.spawnMonster(monster);
@@ -209,6 +214,8 @@ public class Game
                     {
                         System.out.println("You defeated the "+monster.getName()+"!");
                     }
+                    
+                    if(monster.getHP()>0){
                     System.out.println("The "+monster.getName()+" attacks!");
                     for(int i = 0;i<it.length;i++){
                         if(it[i]!=null){
@@ -229,6 +236,7 @@ public class Game
                     defModifier = 0;
                     if(player.getHp()<=0)
                         System.out.println("You were defeated...");
+					}
                 }
                 else if(choice.equalsIgnoreCase("Run"))
                 {
@@ -242,8 +250,11 @@ public class Game
                 }
                 else
                     System.out.println("Not a valid choice! You lose your turn!");
+                    
+                 
             }
-            else if(player.getSpd()<monster.getSpeed()){
+       else if(player.getSpd()<monster.getSpeed()){
+				if(monster.getHP()>0){
                 System.out.println("The "+monster.getName()+" attacks!");
                 for(int i = 0;i<it.length;i++){
                     if(it[i]!=null){
@@ -262,19 +273,23 @@ public class Game
                 System.out.println("You have "+player.getHp()+" HP remaining");
                 dmgTaken = 0;
                 defModifier = 0;
-                if(player.getHp()<=0)
+                
+                if(player.getHp()<=0){
                     System.out.println("You were defeated...");
-
+                    isDead=true;
+				}
+			}
                 System.out.println("You are attacking!");
                 System.out.println("What do you want to do? (Attack, Run)");
                 choice = scan.nextLine();
-                for(int i = 0;i<it.length;i++){
-                    if(it[i]!=null){
-                        if(it[i].getStr()>0){
+                if(choice.equalsIgnoreCase("Attack")){
+					for(int i = 0;i<it.length;i++){
+						if(it[i]!=null){
+							if(it[i].getStr()>0){
                             strModifier+=it[i].getStr();
-                        }
-                    }
-                }
+							}
+						}
+					}
                 dmgDone+=player.getStr();
                 dmgDone+=strModifier;
                 dmgDone-=monster.getDef();
@@ -283,11 +298,11 @@ public class Game
                 System.out.println("The monster has "+monster.getHP()+" health remaining.");
                 dmgDone=0;
                 strModifier = 0;
-                if(monster.getHP()<=0)
-                {
+					if(monster.getHP()<=0)
+					{
                     System.out.println("You defeated the "+monster.getName()+"!");
-                }
-            }
+					}
+				}
             else if(choice.equalsIgnoreCase("Run"))
             {
                 canRun = gen.nextInt(2);
@@ -300,7 +315,72 @@ public class Game
             }
             else
                 System.out.println("Not a valid choice! You lose your turn!");
-        }while(player.getHp()>0&&monster.getHP()>0&&!ran);
-    }
+
+			}
+		}while(player.getHp()>0&&monster.getHP()>0&&!ran);
+		
+		
+		//----------------TREASURE------------------------
+		
+		if(player.getHp()>0){
+			System.out.println("You find a treasure chest in the back of the room.");
+			}
+	}
+	
+	public static void createAllItems()
+	{
+		Items woodSword = new Items(1,0,0,0,"A simple wooden sword","Wooden Sword");
+		Items woodShield = new Items(0,0,1,0,"A flimsy wooden shield","Wooden Shield");
+		Items bow = new Items(2,-1,-1,0,"A small recurve bow","Bow");
+		Items chainmail = new Items(0,-1,3,2,"Sturdy Chainmail Armor","Chainmail Armor");
+		Items ironSword = new Items(3,0,1,0,"A strong iron sword","Iron Sword");
+		Items goodShield = new Items(0,0,3,2,"A sturdy iron kite shield","Iron Shield");
+		Items staff = new Items(4,1,0,3,"A powerful magical staff","Magic Staff");
+		Items goodStaff = new Items(5,2,1,2,"A very powerful magical staff","Powerful Staff");
+		Items greatStaff = new Items(6,2,1,3,"An incredibly powerful magical relic","Staff of Destruction");
+		Items magicShield = new Items(0,2,4,5,"A mysterious magical shield","Magic Shield");
+		Items mace = new Items(4,-3,0,0,"A big spiked mace","Mace");
+		Items chestplate = new Items(0,-1,4,5,"A hardened iron chestpiece","Iron Chestplate");
+		Items longbow = new Items(5,-3,0,0,"A powerful longbow","Longbow");
+		Items humanShield = new Items(0,-1,2,10,"Yeah, it's dark, but it's a human shield!","Human Shield");
+		Items rocks = new Items(1,0,0,0,"They're rocks. What do you expect?","Rocks");
+		Items speedBoots = new Items(0,5,0,0,"You don't know how, but they make you fast...","Boots of Speed");
+		Items doomBow = new Items(10,-4,-4,0,"Lots of damage. But it comes with a price...","The Doom Bow");
+		Items heart = new Items(0,1,2,5,"A strange glowing heart-shaped locket","Heart Charm");
+		Items masterSword = new Items(5,0,1,0,"Good thing Link was kind enough to 'lend' it to you...","The Master Sword");
+		Items boneSword = new Items(3,0,0,0,"A sword made of...bones?","Bone Sword");
+		Items spear = new Items(2,0,0,0,"A spear. All there is to it.","Spear");
+		Items battleaxe = new Items(3,-2,0,0,"A mighty battleaxe","Battleaxe");
+		Items mom = new Items(3,3,3,5,"Momma always makes you do better! (Don't ask how she's in a chest...)","Mom <3");
+		Items gun = new Items(5,-2,-2,0,"A gun?!?!","Gun?!?!");
+		Items knives = new Items(3,-1,-1,0,"They're knives. You throw them. (Hopefully accurately...)","Throwing Knives");
+		
+		allItems.add(woodSword);
+		allItems.add(woodShield);
+		allItems.add(bow);
+		allItems.add(chainmail);
+		allItems.add(ironSword);
+		allItems.add(goodShield);
+		allItems.add(staff);
+		allItems.add(goodStaff);
+		allItems.add(greatStaff);
+		allItems.add(magicShield);
+		allItems.add(mace);
+		allItems.add(chestplate);
+		allItems.add(longbow);
+		allItems.add(humanShield);
+		allItems.add(rocks);
+		allItems.add(speedBoots);
+		allItems.add(doomBow);
+		allItems.add(heart);
+		allItems.add(masterSword);
+		allItems.add(boneSword);
+		allItems.add(spear);
+		allItems.add(battleaxe);
+		allItems.add(mom);
+		allItems.add(gun);
+		allItems.add(knives);
+		}
 }
 
+//To print items stats: System.out.println(allItems.get(indexOfItemDesired).getStats(allItems.get(indexOfItemDesired)));
