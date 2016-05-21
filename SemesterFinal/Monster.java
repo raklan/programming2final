@@ -525,4 +525,9 @@ public class Monster
     {
         return name;
     }
+    
+    public void setLvl(int l)
+    {
+		kind = l;
+		}
 }

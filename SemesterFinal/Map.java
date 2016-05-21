@@ -53,15 +53,16 @@ public class Map
         return c;
     }
 
-    public void enterRoom(int row, int col)
+	public void startPoint(int row, int col)
+	{
+		map[row][col] = true;
+		}
+    public void enterRoom(int row, int col, int row2, int col2)
     {
         map[row][col] = true;
+        map[row2][col2] = false;
     }
 
-    public void leaveRoom(int row, int col)
-    {
-        map[row][col] = false;
-    }
     public void printMap()
     {
         for(int row = 0;row<map.length;row++)

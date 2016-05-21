@@ -121,15 +121,15 @@ public class Game
                 choice = "";
             }
         }while(!ok);
-        map.enterRoom(0,0);
+        map.startPoint(0,0);
         System.out.println();
+        
+        do{
         map.printMap();
-
-
-        moveRooms();
-		
-		
+        moveRooms();		
         executeRoom();
+		}while(map.getRow()!=4&&map.getCol()!=4);
+        
     }
 
     public static void moveRooms()
@@ -140,23 +140,19 @@ public class Game
                 System.out.println("Which way would you like to go? (U/D/L/R)");
                 choice = scan.nextLine();
                 if(choice.equalsIgnoreCase("U")){
-                    map.leaveRoom(map.getRow(),map.getCol());
-                    map.enterRoom(map.getRow()-1,map.getCol());
+                    map.enterRoom(map.getRow()-1,map.getCol(),map.getRow(),map.getCol());
                     leftRoom = true;
                 }
                 else if(choice.equalsIgnoreCase("D")){
-                    map.leaveRoom(map.getRow(),map.getCol());
-                    map.enterRoom(map.getRow()+1,map.getCol());
+                    map.enterRoom(map.getRow()+1,map.getCol(),map.getRow(),map.getCol());
                     leftRoom = true;
                 }
                 else if(choice.equalsIgnoreCase("L")){
-                    map.leaveRoom(map.getRow(),map.getCol());
-                    map.enterRoom(map.getRow(),map.getCol()-1);
+                    map.enterRoom(map.getRow(),map.getCol()-1,map.getRow(),map.getCol());
                     leftRoom = true;
                 }
                 else if(choice.equalsIgnoreCase("R")){
-                    map.leaveRoom(map.getRow(),map.getCol());
-                    map.enterRoom(map.getRow(),map.getCol()+1);
+                    map.enterRoom(map.getRow(),map.getCol()+1,map.getRow(),map.getCol());
                     leftRoom = true;
                 }
             }catch(ArrayIndexOutOfBoundsException e){
@@ -183,7 +179,8 @@ public class Game
         //---------------FIGHTING----------------------
 
         Monster monster = new Monster(1);
-        monster=monster.spawnMonster(monster);
+        monster = spawnMob(monster);
+        monster = monster.spawnMonster(monster);
 
         System.out.println("A "+monster.getName()+" appeared");
 
@@ -409,6 +406,7 @@ public class Game
 					}
 					
 				}
+				System.out.println();
 		
 		}
 	}
@@ -468,6 +466,21 @@ public class Game
 		allItems.add(mom);
 		allItems.add(gun);
 		allItems.add(knives);
+		}
+		
+		public static Monster spawnMob(Monster m){
+				if((map.getRow()==0&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==0))
+					m.setLvl(1);
+				else if((map.getRow()==2&&map.getCol()==0)||(map.getRow()==2&&map.getCol()==1)||(map.getRow()==2&&map.getCol()==2)||(map.getRow()==1&&map.getCol()==2)||(map.getRow()==0&&map.getCol()==2))
+					m.setLvl(2);
+				else if((map.getRow()==3&&map.getCol()==0)||(map.getRow()==3&&map.getCol()==1)||(map.getRow()==3&&map.getCol()==2)||(map.getRow()==3&&map.getCol()==3)||(map.getRow()==2&&map.getCol()==3)||(map.getRow()==1&&map.getCol()==3)||(map.getRow()==0&&map.getCol()==3))
+					m.setLvl(3);
+				else if((map.getRow()==4&&map.getCol()==0)||(map.getRow()==4&&map.getCol()==1)||(map.getRow()==4&&map.getCol()==2)||(map.getRow()==4&&map.getCol()==3))
+					m.setLvl(4);
+				else if((map.getCol()==4&&map.getRow()==0)||(map.getCol()==4&&map.getRow()==1)||(map.getCol()==4&&map.getRow()==2)||(map.getCol()==4&&map.getRow()==3))
+					m.setLvl(5);
+					
+					return m;
 		}
 }
 
