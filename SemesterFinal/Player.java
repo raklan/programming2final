@@ -8,32 +8,39 @@
 public class Player{
     private String type;
     private int hp;
+    private int maxHp;
     private int str;
     private int spd;
     private int def;
+    private int numOfPotions;
     private Items[]items = new Items[5];
 
     public Player(String t, Items[]i){
         type = t;
+        numOfPotions = 0;
         if(type.equalsIgnoreCase("warrior")){
+			maxHp = 8;
             hp=8;
             str = 4;
             def = 4;
             spd = 4;
         }
         else if(type.equalsIgnoreCase("Scout")){
+			maxHp = 8;
             hp = 8;
             str = 3;
             def = 3;
             spd = 6;
         }
         else if(type.equalsIgnoreCase("Brute")){
+			maxHp = 10;
             hp = 10;
             str = 5;
             def = 3;
             spd = 2;
         }
         else if(type.equalsIgnoreCase("Tank")){
+			maxHp = 12;
             hp = 12;
             str = 3;
             def = 5;
@@ -57,7 +64,7 @@ public class Player{
     }
 
     public void changeHp(int h){
-        hp+=h;
+        hp = h;
     }
 
     public int getHp(){
@@ -77,6 +84,17 @@ public class Player{
     {
         return def;
     }
+    
+    public int getMaxHp(){
+		return maxHp;
+	}
+	public void setPotions(int n)
+	{
+		numOfPotions += n;
+	}
+	public int getPotions(){
+		return numOfPotions;
+	}
 
     public String getStats(String t){
         if(t.equalsIgnoreCase("warrior")){
