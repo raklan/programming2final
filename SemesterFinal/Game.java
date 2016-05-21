@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.*;
 /**
  * Write a description of class Game here.
  * 
@@ -10,12 +11,13 @@ import java.util.ArrayList;
 public class Game
 {
     static Scanner scan = new Scanner(System.in);
+    static Scanner input = new Scanner(System.in);
     static Player player;
     static Map map = new Map();
     static String choice;
     static Items[]it = new Items[5];
     static ArrayList<Items> allItems = new ArrayList<Items>();
-    static ArrayList<String> itemsFound = new ArrayList<String>();
+    static ArrayList<Items> itemsFound = new ArrayList<Items>();
 
     static boolean isDead = false;
 
@@ -99,8 +101,6 @@ public class Game
             }
             else if(choice.equalsIgnoreCase("warrior")){
                 player = new Player("warrior",it);
-                Items sword = new Items(1,0,0,0,"A Simple Wooden Sword","Wooden Sword");
-                player.setItem(0, sword);
                 ok = true;
             }
             else if(choice.equalsIgnoreCase("scout")){
@@ -124,6 +124,7 @@ public class Game
         map.enterRoom(0,0);
         System.out.println();
         map.printMap();
+
 
         moveRooms();
 		
@@ -168,9 +169,8 @@ public class Game
 
     public static void executeRoom()
     {
-
+		Random gen = new Random();
         it = player.getItems();
-        Random gen = new Random();
         int whoAttacks = 2;
         int canRun = 0;
         boolean ran = false;
@@ -320,15 +320,103 @@ public class Game
 		}while(player.getHp()>0&&monster.getHP()>0&&!ran);
 		
 		
-		//----------------TREASURE------------------------
+		//----------------TREASURE-----------------------------------------------
+		int loot1=0;
+		int loot2=0;
+		int equipSlot = 0;
+		String equipItem = "";
+		boolean isEmpty = true;
+		boolean equipped = false;
 		
 		if(player.getHp()>0){
+			System.out.println();
 			System.out.println("You find a treasure chest in the back of the room.");
+			loot1 = gen.nextInt(25);
+			do{
+			loot2 = gen.nextInt(25);
+			}while(loot1==loot2);
+			System.out.println("You found a "+allItems.get(loot1).getStats(allItems.get(loot1)));
+			System.out.println("You found a "+allItems.get(loot2).getStats(allItems.get(loot2)));
+			itemsFound.add(allItems.get(loot1));
+			itemsFound.add(allItems.get(loot2));
+			loot1=0;
+			loot2=0;
+			do{
+			System.out.println("Would you like to equip any items? (Y/N)");
+			choice=scan.nextLine();
+			if(choice.equalsIgnoreCase("Y")){
+				System.out.println("Your inventory: ");
+				for(int i = 0;i<it.length;i++)
+				{
+					if(it[i]!=null){
+						System.out.print(it[i].getName()+", ");
+						isEmpty = false;
+					}
+					if(isEmpty){
+						System.out.println("Your inventory is empty.");
+						break;
+					}
+					
+				}	
+				System.out.println();
+				try{
+					equipped = false;
+				System.out.println("Which spot would you like to equip an item in? (1-5)");
+				input.reset();
+				equipSlot = input.nextInt();
+				equipSlot -= 1;
+				
+				
+				System.out.println("Which item do you want to equip?");
+				equipItem = scan.nextLine();
+				for(int i = 0; i < itemsFound.size(); i++){
+					if(i<=it.length&&it[i]!=null&&it[i].getName().equalsIgnoreCase(equipItem)){
+						System.out.println("You've already equipped that item!");
+						equipped = true;
+						}
+					else if(itemsFound.get(i).getName().equalsIgnoreCase(equipItem)){
+						it[equipSlot] = itemsFound.get(i);
+						System.out.println("Item successfully equipped");
+						equipped = true;
+						}
+					}
+				if(!equipped){
+					System.out.println("You haven't found that item!");
+					}
+				
 			}
+			catch(InputMismatchException e){
+					System.out.println("Error: Not an inventory slot.");
+					equipSlot = 0;
+					input.next();
+					}
+			}
+			else if(choice.equalsIgnoreCase("N")){
+				System.out.println("Moving on then...");
+			}
+			
+		}while(!choice.equalsIgnoreCase("n"));
+		
+		for(int i = 0;i<it.length;i++)
+				{
+					if(it[i]!=null){
+						System.out.print(it[i].getName()+", ");
+						isEmpty = false;
+					}
+					if(isEmpty){
+						System.out.println("Your inventory is empty.");
+						break;
+					}
+					
+				}
+		
+		}
 	}
 	
 	public static void createAllItems()
-	{
+	{	
+		//Index goes from 0-24, 25 total Items
+		
 		Items woodSword = new Items(1,0,0,0,"A simple wooden sword","Wooden Sword");
 		Items woodShield = new Items(0,0,1,0,"A flimsy wooden shield","Wooden Shield");
 		Items bow = new Items(2,-1,-1,0,"A small recurve bow","Bow");
@@ -345,13 +433,13 @@ public class Game
 		Items humanShield = new Items(0,-1,2,10,"Yeah, it's dark, but it's a human shield!","Human Shield");
 		Items rocks = new Items(1,0,0,0,"They're rocks. What do you expect?","Rocks");
 		Items speedBoots = new Items(0,5,0,0,"You don't know how, but they make you fast...","Boots of Speed");
-		Items doomBow = new Items(10,-4,-4,0,"Lots of damage. But it comes with a price...","The Doom Bow");
+		Items doomBow = new Items(10,-4,-4,0,"Lots of damage. But it comes with a price...","Doom Bow");
 		Items heart = new Items(0,1,2,5,"A strange glowing heart-shaped locket","Heart Charm");
 		Items masterSword = new Items(5,0,1,0,"Good thing Link was kind enough to 'lend' it to you...","The Master Sword");
 		Items boneSword = new Items(3,0,0,0,"A sword made of...bones?","Bone Sword");
 		Items spear = new Items(2,0,0,0,"A spear. All there is to it.","Spear");
 		Items battleaxe = new Items(3,-2,0,0,"A mighty battleaxe","Battleaxe");
-		Items mom = new Items(3,3,3,5,"Momma always makes you do better! (Don't ask how she's in a chest...)","Mom <3");
+		Items mom = new Items(3,3,3,5,"Momma always makes you do better! <3 (Don't ask how she's in a chest...)","Mom");
 		Items gun = new Items(5,-2,-2,0,"A gun?!?!","Gun?!?!");
 		Items knives = new Items(3,-1,-1,0,"They're knives. You throw them. (Hopefully accurately...)","Throwing Knives");
 		
@@ -383,4 +471,4 @@ public class Game
 		}
 }
 
-//To print items stats: System.out.println(allItems.get(indexOfItemDesired).getStats(allItems.get(indexOfItemDesired)));
+//To print items stats: System.out.println(allItems.get(IndexofdesiredItem)).getStats(allItems.get(IndexOfdesiredItem));
