@@ -377,6 +377,8 @@ public class Game
                 dmgDone+=player.getStr();
                 dmgDone+=strModifier;
                 dmgDone-=monster.getDef();
+                if(dmgDone>1)
+					dmgDone = 1;
                 dmgDone = dmgDone*-1;
                 monster.setHP(dmgDone);
                 System.out.println("The monster has "+monster.getHP()+" health remaining.");
@@ -418,7 +420,7 @@ public class Game
 		player.changeHp(battleHp);
 		
 		
-		//----------------TREASURE-----------------------------------------------
+		//-------------------------------------------TREASURE-----------------------------------------------
 		int loot1=0;
 		int loot2=0;
 		int potions = 0;
@@ -428,6 +430,8 @@ public class Game
 		boolean equipped = false;
 		
 		if(player.getHp()>0){
+			System.out.println("Press Enter to Continue");
+			choice = scan.nextLine();
 			System.out.println();
 			System.out.println("You find a treasure chest in the back of the room.");
 			loot1 = gen.nextInt(25);
@@ -467,20 +471,23 @@ public class Game
 				System.out.println("Which spot would you like to equip an item in? (1-5)");
 				input.reset();
 				equipSlot = input.nextInt();
-				equipSlot -= 1;
+				equipSlot = equipSlot - 1;
 				
 				
 				System.out.println("Which item do you want to equip?");
 				equipItem = scan.nextLine();
 				for(int i = 0; i < itemsFound.size(); i++){
-					if(i<=it.length&&it[i]!=null&&it[i].getName().equalsIgnoreCase(equipItem)){
+					System.out.println(i);
+					if(i <= it.length && i<itemsFound.size() && it[i]!=null && it[i].getName().equalsIgnoreCase(equipItem)){
 						System.out.println("You've already equipped that item!");
 						equipped = true;
+						break;
 						}
-					else if(itemsFound.get(i).getName().equalsIgnoreCase(equipItem)){
+					else if(i<it.length&&i<itemsFound.size() && itemsFound.get(i).getName().equalsIgnoreCase(equipItem)){
 						it[equipSlot] = itemsFound.get(i);
 						System.out.println("Item successfully equipped");
 						equipped = true;
+						break;
 						}
 					}
 				if(!equipped){
@@ -492,7 +499,14 @@ public class Game
 					System.out.println("Error: Not an inventory slot.");
 					equipSlot = 0;
 					input.next();
-					}
+			}
+			catch(ArrayIndexOutOfBoundsException e){
+					System.out.println("Error: Not able to equip item in requested spot.");
+					equipSlot = 0;
+					equipItem = "";
+					scan.next();
+					input.next();
+			}
 			}
 			else if(choice.equalsIgnoreCase("N")){
 				System.out.println("Moving on then...");
