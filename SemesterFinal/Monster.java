@@ -15,6 +15,7 @@ public class Monster
     private int strength;
     private int speed;
     private int defense;
+    
     public Monster(int m)
     {
         kind = m;
@@ -25,6 +26,15 @@ public class Monster
         name = " ";
 
     }
+    
+	public Monster()
+	{
+		health = 30;
+		strength = 10;
+		speed = 10;
+		defense = 10;
+		name = "Ralk the Beheader";
+	}
 
     public Monster spawnMonster(Monster m)
     {

@@ -3,10 +3,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.*;
 /**
- * Write a description of class Game here.
+ * Main class and gameplay of The Cave
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Ryan Lake
+ * @version 1.0
  */
 public class Game
 {
@@ -42,6 +42,7 @@ public class Game
         System.out.println("    \\             /        \\      \\    /      |   ");
         System.out.println("     \\           /          \\      \\  /       |   ");
         System.out.println("      \\______   /            \\      \\/        |=======   ");
+        
 
         
         do{
@@ -69,9 +70,10 @@ public class Game
                 System.out.println("  *Note: Potions do not count towards you 5 items total.");
                 System.out.println("");
                 System.out.println("ABOUT THE MAP:");
-                System.out.println("Type 'map' at any time to see the map!");
                 System.out.println("The final boss is at the bottom right corner, marked by 'X'");
                 System.out.println("Your location is marked by 'O'");
+                System.out.println("Enemies get harder as you get closer to the boss.");
+                System.out.println("Move around in the map by pressing U(UP), D(Down), L(Left), or R(Right)");
                 System.out.println("");
                 System.out.println("ABOUT DIFFICULTY:");
                 System.out.println("There are two difficulties: Easy or Hard");
@@ -170,7 +172,7 @@ public class Game
         boolean leftRoom = false;
         do{
             try{
-                System.out.println("Which way would you like to go? (U/D/L/R)");
+                System.out.println("Which way would you like to go? (U/D/L/R or Potion)");
                 choice = scan.nextLine();
                 if(choice.equalsIgnoreCase("U")){
                     map.enterRoom(map.getRow()-1,map.getCol(),map.getRow(),map.getCol());
@@ -188,6 +190,19 @@ public class Game
                     map.enterRoom(map.getRow(),map.getCol()+1,map.getRow(),map.getCol());
                     leftRoom = true;
                 }
+                else if(choice.equalsIgnoreCase("potion"))
+				{
+					if(player.getPotions()>0)
+					{
+					player.setPotions(-1);
+					player.changeHp(player.getHp()+5);
+					System.out.println("You drink the potion and feel better.");
+					}
+					else if(player.getPotions()<=0)
+					{
+					System.out.println("You don't have any potions!");
+					}
+				}
             }catch(ArrayIndexOutOfBoundsException e){
                 System.out.println("You can't go that way!");  
                 leftRoom = false;
@@ -574,7 +589,278 @@ public class Game
 		}
 		
 		public static void finalBoss(){
+			Monster monster = new Monster();
+			
+			it = player.getItems();
+			int whoAttacks = 2;
+			int canRun = 0;
+			boolean ran = false;
+			int dmgDone = 0;
+			int dmgTaken = 0;
+			int strModifier = 0;
+			int spdModifier = 0;
+			int defModifier = 0;
+			int HpModifier = 0;
+			int battleSpd = 0;
+			int battleHp = 0;
+			
+			System.out.println("You walk into a room lit only by torches.");
+			System.out.println("Suddenly, the doorway you came through collapses.");
+			System.out.println("\"Hello?\" you call out slightly shakily.");
+			System.out.println("From a dark opening in the far wall, a hulking shadow appears.");
+			System.out.println("Brandishing your "+it[0]+", you step forward.");
+			System.out.println("\"Who awakens me?!\" a deep voice booms.");
+			System.out.println("(Type your response)");
+			choice = scan.nextLine();
+			System.out.println("\"You call yourself "+choice+"?!\"");
+			System.out.println("\"Very well, "+choice+".\"");
+			System.out.println("He steps forward, revealing a huge humanoid figure, 10 feet tall, covered in scars and decorated with skulls.");
+			System.out.println("\"I am Ralk the Beheader.\" he booms. \"All tremble before me.\"");
+			System.out.println("\"Why have you awakened me?\"");
+			System.out.println("(Type your response)");
+			choice = scan.nextLine();
+			System.out.println("\"HA HA HA HA!! None have ever accomplished that feat\"");
+			System.out.println("\"You amuse me, mortal. However, you must die now.\"");
+			System.out.println("");
+			System.out.println("Ralk the Beheader appears!");
+			
+			System.out.println("Get Ready to Battle");
+        
+        if(difficulty.equalsIgnoreCase("easy"))
+			player.changeHp(player.getMaxHp());
+        
+        for(int i = 0;i<it.length;i++){
+				if(it[i]!=null){
+                            if(it[i].getSpd()>0){
+                                spdModifier+=it[i].getSpd();
+                            }
+                }
 		}
+		for(int i = 0;i<it.length;i++){
+				if(it[i]!=null){
+                            if(it[i].getHp()>0){
+                                HpModifier+=it[i].getHp();
+                            }
+                }
+		}
+		battleSpd = player.getSpd()+spdModifier;
+		battleHp = player.getHp()+HpModifier;
+		
+		
+        do{
+            if(battleSpd>monster.getSpeed()){
+                System.out.println("You are attacking!");
+                System.out.println("What do you want to do? (Attack, Run, Potion)");
+                choice = scan.nextLine();
+                if(choice.equalsIgnoreCase("Attack"))
+                {
+                    for(int i = 0;i<it.length;i++){
+                        if(it[i]!=null){
+                            if(it[i].getStr()>0){
+                                strModifier+=it[i].getStr();
+                            }
+                        }
+                    }
+                    dmgDone+=player.getStr();
+                    dmgDone+=strModifier;
+                    dmgDone-=monster.getDef();
+                    dmgDone = dmgDone*-1;
+                    monster.setHP(dmgDone);
+                    System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
+                    dmgDone=0;
+                    strModifier = 0;
+                    if(monster.getHP()<=0)
+                    {
+                        System.out.println("You defeated "+monster.getName()+"!");
+                    }
+                    
+                    if(monster.getHP()>0){
+                    System.out.println(monster.getName()+" attacks!");
+                    for(int i = 0;i<it.length;i++){
+                        if(it[i]!=null){
+                            if(it[i].getDef()>0){
+                                defModifier+=it[i].getDef();
+                            }
+                        }
+                    }
+                    dmgTaken=monster.getStr();
+                    dmgTaken-=player.getDef();
+                    dmgTaken-=defModifier;
+                    if(dmgTaken<1)
+                        dmgTaken=1;
+                    dmgTaken=dmgTaken*-1;                
+                    battleHp+=dmgTaken;
+                    System.out.println("You have "+battleHp+" HP remaining");
+                    dmgTaken = 0;
+                    defModifier = 0;
+                    if(battleHp<=0)
+                        System.out.println("You were defeated...");
+					}
+                }
+                else if(choice.equalsIgnoreCase("Run"))
+                {
+                    System.out.println("There's nowhere to run!");
+                }
+                else if(choice.equalsIgnoreCase("potion"))
+				{
+					if(player.getPotions()>0)
+					{
+					player.setPotions(-1);
+					battleHp+=5;
+					System.out.println("You drink the potion and feel better.");
+					}
+					else if(player.getPotions()<=0)
+					{
+					System.out.println("You don't have any potions! You lost your turn while looking for them!");
+					}
+				}
+                else
+                    System.out.println("Not a valid choice! You lose your turn!");
+                    
+                 
+            }
+       else if(battleSpd<monster.getSpeed()){
+				if(monster.getHP()>0){
+                System.out.println(monster.getName()+" attacks!");
+                for(int i = 0;i<it.length;i++){
+                    if(it[i]!=null){
+                        if(it[i].getDef()>0){
+                            defModifier+=it[i].getDef();
+                        }
+                    }
+                }
+                dmgTaken=monster.getStr();
+                dmgTaken-=player.getDef();
+                dmgTaken-=defModifier;
+                if(dmgTaken<1)
+                    dmgTaken=1;
+                dmgTaken=dmgTaken*-1;                
+                battleHp+=dmgTaken;
+                System.out.println("You have "+battleHp+" HP remaining");
+                dmgTaken = 0;
+                defModifier = 0;
+                
+                if(battleHp<=0){
+                    System.out.println("You were defeated...");
+                    isDead=true;
+				}
+			}
+                System.out.println("You are attacking!");
+                System.out.println("What do you want to do? (Attack, Run, Potion)");
+                choice = scan.nextLine();
+            if(choice.equalsIgnoreCase("Attack")){
+					for(int i = 0;i<it.length;i++){
+						if(it[i]!=null){
+							if(it[i].getStr()>0){
+                            strModifier+=it[i].getStr();
+							}
+						}
+					}
+                dmgDone+=player.getStr();
+                dmgDone+=strModifier;
+                dmgDone-=monster.getDef();
+                dmgDone = dmgDone*-1;
+                monster.setHP(dmgDone);
+                System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
+                dmgDone=0;
+                strModifier = 0;
+					if(monster.getHP()<=0)
+					{
+                    System.out.println("You defeated "+monster.getName()+"!");
+					}
+				}
+            else if(choice.equalsIgnoreCase("Run"))
+            {
+                System.out.println("There's nowhere to run!");
+            }
+            else if(choice.equalsIgnoreCase("potion"))
+            {
+				if(player.getPotions()>0)
+				{
+					player.setPotions(-1);
+					battleHp+=5;
+					System.out.println("You drink the potion and feel better.");
+				}
+				else if(player.getPotions()<=0)
+				{
+					System.out.println("You don't have any potions! You lost your turn while looking for them!");
+				}
+			}
+            else
+                System.out.println("Not a valid choice! You lose your turn!");
+
+			}
+		}while(battleHp>0&&monster.getHP()>0&&!ran);
+		player.changeHp(battleHp);
+		
+		if(!isDead){
+		System.out.println("After what seems like ages of battle, you finally plunge your weapon into the behemoth's heart.");
+		System.out.println("Staggering backwards, he roars in pain, clutching at the weapon lodged in his massive chest.");
+		System.out.println("\"How...how...What ARE you?!\"");
+		System.out.println("(Type your response)");
+		choice = scan.nextLine();
+		System.out.println("\"You can't...possibly...be...\"");
+		System.out.println("With that, he finally collapses, dead.");
+		System.out.println("");
+		System.out.println("A door opens in the back of the room as he hits the floor, letting in bright sunlight.");
+		System.out.println("You walk through the doorway into another large room, lit by a hole in the ceiling with a ladder hanging from it.");
+		System.out.println("Inside is a singular chest on a pedestal, nicer than any others in the rest of the cave.");
+		System.out.println("Finally, you've found the treasure you fought so hard for.");
+		System.out.println("You walk up to the chest and open the lid.");
+		System.out.println("Press enter to continue.");
+		choice = scan.nextLine();
+		System.out.println("Inside");
+		choice = scan.nextLine();
+		System.out.println("You");
+		choice = scan.nextLine();
+		System.out.println("Find...");
+		choice = scan.nextLine();
+		System.out.println("4 Skittles.");
+		choice = scan.nextLine();
+		System.out.println("Not 5.");
+		choice = scan.nextLine();
+		System.out.println("Not 3.");
+		choice = scan.nextLine();
+		System.out.println("4. Skittles. (In surprisingly good condition)");
+		System.out.println("");
+		choice = scan.nextLine();
+		System.out.println("Oh, and you find tons of gold and jewels!");
+		System.out.println("And a bus pass to Morocco...");
+		choice = scan.nextLine();
+		System.out.println("");
+		System.out.println("Stuffing your pockets full, as well as your bag, you finally set off again.");
+		System.out.println("You climb the ladder, and finding yourself in a forest, once again look for a new adventure.");
+		System.out.println("");
+		System.out.println("Thank You For Playing!");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("CREDITS:");
+		System.out.println("(Remember: Press Enter to Continue!)");
+		System.out.println("");
+		System.out.println("~~PROGRAMMING~~");
+		choice = scan.nextLine();
+		System.out.println(" ~~~Ryan Lake~~~");
+		choice = scan.nextLine();
+		System.out.println(" ~~~Griffin Holloway~~~");
+		choice = scan.nextLine();
+		System.out.println("");
+		System.out.println("~~SPECIAL THANKS~~");
+		choice = scan.nextLine();
+		System.out.println(" ~~~Natalie Watts~~~");
+		choice = scan.nextLine();
+		System.out.println(" ~~~Craig Lake~~~");
+		choice = scan.nextLine();
+		System.out.println(" ~~~You, the Player!~~~");
+		
+		
+		}
+			
+			
+		}
+		
+		
+		//-------------------------GAMEPLAY----------------------------------------------------
 		
 		public static void gameplay()
 		{
