@@ -421,6 +421,7 @@ public class Game
 		//----------------TREASURE-----------------------------------------------
 		int loot1=0;
 		int loot2=0;
+		int potions = 0;
 		int equipSlot = 0;
 		String equipItem = "";
 		boolean isEmpty = true;
@@ -433,8 +434,11 @@ public class Game
 			do{
 			loot2 = gen.nextInt(25);
 			}while(loot1==loot2);
+			potions = gen.nextInt(6);
+			System.out.println("You found "+potions+" potions!");
 			System.out.println("You found a "+allItems.get(loot1).getStats(allItems.get(loot1)));
 			System.out.println("You found a "+allItems.get(loot2).getStats(allItems.get(loot2)));
+			player.setPotions(potions);
 			itemsFound.add(allItems.get(loot1));
 			itemsFound.add(allItems.get(loot2));
 			loot1=0;
