@@ -23,7 +23,7 @@ public class Game
     static boolean isDead = false;
 
     public static void main(String[]args){
-		createAllItems();
+        createAllItems();
         Player info = new Player();
         boolean ok = false;
 
@@ -42,23 +42,28 @@ public class Game
         System.out.println("    \\             /        \\      \\    /      |   ");
         System.out.println("     \\           /          \\      \\  /       |   ");
         System.out.println("      \\______   /            \\      \\/        |=======   ");
-        
 
-        
         do{
-			System.out.println("Type 'help' for instructions");
-			System.out.println("Otherwise, choose your difficulty. (Easy/Hard)");
-			choice = scan.nextLine();
-                
+            System.out.println();
+            System.out.println("Type 'help' for instructions");
+            if(difficulty==null)
+                System.out.println("Otherwise, choose your difficulty. (Easy/Hard)");
+            else{
+                System.out.println("Otherwise, choose your class");
+                System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
+                System.out.println("Or type 'about (insert class here)' to see that class's stats");
+            }
+            choice = scan.nextLine();
+
             if(choice.equalsIgnoreCase("help")){
                 System.out.println("");
-                System.out.println("This is an adventure-based RPG (Role-playing game, not Rocket-Propelled Grenade)");
+                System.out.println("This is an adventure-based RPG (Role-Playing Game, not Rocket-Propelled Grenade)");
                 System.out.println("You will be adventuring down into the cave filled with treasure and monsters");
                 System.out.println("If you can beat the boss inside, you win!");
                 System.out.println("");
                 System.out.println("ABOUT CLASSES:");
-                System.out.println("Each class has its own set of stats. 20 total 'points' are distributed thoughout 4 stats:");
-                System.out.println(" HP - The amount of health you have. Only potions will heal you.");
+                System.out.println("Each class has its own set of stats. 15 total 'points' are distributed thoughout 4 stats:");
+                System.out.println(" HP - The amount of health you have.");
                 System.out.println(" Attack - How much damage you do");
                 System.out.println(" Defense - How much damage you DON'T take");
                 System.out.println(" Speed - Determines who attacks first");
@@ -78,16 +83,16 @@ public class Game
                 System.out.println("ABOUT DIFFICULTY:");
                 System.out.println("There are two difficulties: Easy or Hard");
                 System.out.println("In EASY Mode, your HP resets every battle.");
-                System.out.println("In HARD Mode, your HP doesn't reset. Potions are the only way to heal.");	
+                System.out.println("In HARD Mode, your HP doesn't reset. Potions are the only way to heal.");   
                 System.out.println("");
                 System.out.println("Ready? I hope you are! Choose your difficulty: (Easy/Hard)");
                 choice = scan.nextLine();
                 if(choice.equalsIgnoreCase("easy"))
-					difficulty = "easy";
-				else if(choice.equalsIgnoreCase("hard"))
-					difficulty = "hard";
-				else
-					System.out.println("Not a valid choice. Defaulting to Easy..."); difficulty = "easy";
+                    difficulty = "easy";
+                else if(choice.equalsIgnoreCase("hard"))
+                    difficulty = "hard";
+                else
+                    System.out.println("Not a valid choice. Defaulting to Easy..."); difficulty = "easy";
                 System.out.println("");
                 System.out.println("Now choose your Class.");
                 System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
@@ -96,26 +101,26 @@ public class Game
             }
             if(choice.equalsIgnoreCase("easy")||choice.equalsIgnoreCase("hard"))
             {
-				if(choice.equalsIgnoreCase("easy")){
-				difficulty = "easy";  
-				System.out.println("Difficulty set to easy.");
-				System.out.println("Now choose your Class. ");
-				System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
-                System.out.println("Or type 'about (insert class here)' to see that class's stats");
-                choice = scan.nextLine();
-                System.out.println();
-				}
-				else if(choice.equalsIgnoreCase("hard"))
-				{
-				difficulty = "hard"; 
-				System.out.println("Difficulty set to hard.");
-				System.out.println("Now choose your Class. ");
-				System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
-                System.out.println("Or type 'about (insert class here)' to see that class's stats");
-                choice = scan.nextLine();
-                System.out.println();
-				}
-			}
+                if(choice.equalsIgnoreCase("easy")){
+                    difficulty = "easy";  
+                    System.out.println("Difficulty set to easy.");
+                    System.out.println("Now choose your Class. ");
+                    System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
+                    System.out.println("Or type 'about (insert class here)' to see that class's stats");
+                    choice = scan.nextLine();
+                    System.out.println();
+                }
+                else if(choice.equalsIgnoreCase("hard"))
+                {
+                    difficulty = "hard"; 
+                    System.out.println("Difficulty set to hard.");
+                    System.out.println("Now choose your Class. ");
+                    System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
+                    System.out.println("Or type 'about (insert class here)' to see that class's stats");
+                    choice = scan.nextLine();
+                    System.out.println();
+                }
+            }
             if(choice.equalsIgnoreCase("about warrior"))
             {
                 System.out.println("");
@@ -161,11 +166,9 @@ public class Game
         }while(!ok);
         map.startPoint(0,0);
         System.out.println();
-        
+
         gameplay();
-		}
-        
-    
+    }
 
     public static void moveRooms()
     {
@@ -191,18 +194,18 @@ public class Game
                     leftRoom = true;
                 }
                 else if(choice.equalsIgnoreCase("potion"))
-				{
-					if(player.getPotions()>0)
-					{
-					player.setPotions(-1);
-					player.changeHp(player.getHp()+5);
-					System.out.println("You drink the potion and feel better.");
-					}
-					else if(player.getPotions()<=0)
-					{
-					System.out.println("You don't have any potions!");
-					}
-				}
+                {
+                    if(player.getPotions()>0)
+                    {
+                        player.setPotions(-1);
+                        player.changeHp(player.getHp()+5);
+                        System.out.println("You drink the potion and feel better.");
+                    }
+                    else if(player.getPotions()<=0)
+                    {
+                        System.out.println("You don't have any potions!");
+                    }
+                }
             }catch(ArrayIndexOutOfBoundsException e){
                 System.out.println("You can't go that way!");  
                 leftRoom = false;
@@ -213,7 +216,7 @@ public class Game
 
     public static void executeRoom()
     {
-		Random gen = new Random();
+        Random gen = new Random();
         it = player.getItems();
         int whoAttacks = 2;
         int canRun = 0;
@@ -226,10 +229,11 @@ public class Game
         int HpModifier = 0;
         int battleSpd = 0;
         int battleHp = 0;
-        
-        if(difficulty.equalsIgnoreCase("easy"));
-			player.changeHp(player.getMaxHp());
-        
+        isDead = false;
+
+        if(difficulty.equalsIgnoreCase("easy"))
+            player.changeHp(player.getMaxHp());
+
         //---------------FIGHTING----------------------
 
         Monster monster = new Monster(1);
@@ -239,54 +243,108 @@ public class Game
         System.out.println("A "+monster.getName()+" appeared");
 
         System.out.println("Get Ready to Battle");
-        
-        
+
         for(int i = 0;i<it.length;i++){
-				if(it[i]!=null){
-                            if(it[i].getSpd()>0){
-                                spdModifier+=it[i].getSpd();
-                            }
+            if(it[i]!=null){
+                if(it[i].getSpd()>0){
+                    spdModifier+=it[i].getSpd();
                 }
-		}
-		for(int i = 0;i<it.length;i++){
-				if(it[i]!=null){
-                            if(it[i].getHp()>0){
-                                HpModifier+=it[i].getHp();
-                            }
+            }
+        }
+
+        for(int i = 0;i<it.length;i++){
+            if(it[i]!=null){
+                if(it[i].getHp()>0){
+                    HpModifier+=it[i].getHp();
                 }
-		}
-		battleSpd = player.getSpd()+spdModifier;
-		battleHp = player.getHp()+HpModifier;
-		
-		
+            }
+        }
+
+        battleSpd = player.getSpd()+spdModifier;
+        battleHp = player.getHp()+HpModifier;
+
         do{
             if(battleSpd>monster.getSpeed()){
-                System.out.println("You are attacking!");
-                System.out.println("What do you want to do? (Attack, Run, Potion)");
-                choice = scan.nextLine();
-                if(choice.equalsIgnoreCase("Attack"))
-                {
-                    for(int i = 0;i<it.length;i++){
-                        if(it[i]!=null){
-                            if(it[i].getStr()>0){
-                                strModifier+=it[i].getStr();
+                if(isDead==false){
+                    System.out.println("You are attacking!");
+                    System.out.println("What do you want to do? (Attack, Run, Potion)");
+                    choice = scan.nextLine();
+                    if(choice.equalsIgnoreCase("Attack"))
+                    {
+                        for(int i = 0;i<it.length;i++){
+                            if(it[i]!=null){
+                                if(it[i].getStr()>0){
+                                    strModifier+=it[i].getStr();
+                                }
+                            }
+                        }
+                        dmgDone+=player.getStr();
+                        dmgDone+=strModifier;
+                        dmgDone-=monster.getDef();
+                        if(dmgDone<=0)
+                            dmgDone = 1;
+                        dmgDone = dmgDone*-1;
+                        monster.setHP(dmgDone);
+                        System.out.println("The monster has "+monster.getHP()+" health remaining.");
+                        dmgDone=0;
+                        if(monster.getHP()<=0)
+                        {
+                            System.out.println("You defeated the "+monster.getName()+"!");
+                        }
+
+                        if(monster.getHP()>0){
+                            System.out.println("The "+monster.getName()+" attacks!");
+                            for(int i = 0;i<it.length;i++){
+                                if(it[i]!=null){
+                                    if(it[i].getDef()>0){
+                                        defModifier+=it[i].getDef();
+                                    }
+                                }
+                            }
+                            dmgTaken=monster.getStr();
+                            dmgTaken-=player.getDef();
+                            dmgTaken-=defModifier;
+                            if(dmgTaken<1)
+                                dmgTaken=1;
+                            dmgTaken=dmgTaken*-1;                
+                            battleHp+=dmgTaken;
+                            System.out.println("You have "+battleHp+" HP remaining");
+                            dmgTaken = 0;
+                            if(battleHp<=0){
+                                System.out.println("You were defeated...");
+                                isDead = true;
                             }
                         }
                     }
-                    dmgDone+=player.getStr();
-                    dmgDone+=strModifier;
-                    dmgDone-=monster.getDef();
-                    dmgDone = dmgDone*-1;
-                    monster.setHP(dmgDone);
-                    System.out.println("The monster has "+monster.getHP()+" health remaining.");
-                    dmgDone=0;
-                    strModifier = 0;
-                    if(monster.getHP()<=0)
+                    else if(choice.equalsIgnoreCase("Run"))
                     {
-                        System.out.println("You defeated the "+monster.getName()+"!");
+                        canRun = gen.nextInt(2);
+                        if(canRun==0)
+                            System.out.println("Couldn't Run!");
+                        else if(canRun==1){
+                            System.out.println("Barely got away!");
+                            ran = true;
+                        }
                     }
-                    
-                    if(monster.getHP()>0){
+                    else if(choice.equalsIgnoreCase("potion"))
+                    {
+                        if(player.getPotions()>0)
+                        {
+                            player.setPotions(-1);
+                            battleHp+=5;
+                            System.out.println("You drink the potion and feel better.");
+                        }
+                        else if(player.getPotions()<=0)
+                        {
+                            System.out.println("You don't have any potions! You lost your turn while looking for them!");
+                        }
+                    }
+                    else
+                        System.out.println("Not a valid choice! You lose your turn!");
+                }
+            }
+            else if(battleSpd<=monster.getSpeed()){
+                if(monster.getHP()>0){
                     System.out.println("The "+monster.getName()+" attacks!");
                     for(int i = 0;i<it.length;i++){
                         if(it[i]!=null){
@@ -305,394 +363,395 @@ public class Game
                     System.out.println("You have "+battleHp+" HP remaining");
                     dmgTaken = 0;
                     defModifier = 0;
-                    if(battleHp<=0)
+
+                    if(battleHp<=0){
                         System.out.println("You were defeated...");
-					}
-                }
-                else if(choice.equalsIgnoreCase("Run"))
-                {
-                    canRun = gen.nextInt(2);
-                    if(canRun==0)
-                        System.out.println("Couldn't Run!");
-                    else if(canRun==1){
-                        System.out.println("Barely got away!");
-                        ran = true;
+                        isDead=true;
                     }
                 }
-                else if(choice.equalsIgnoreCase("potion"))
-				{
-					if(player.getPotions()>0)
-					{
-					player.setPotions(-1);
-					battleHp+=5;
-					System.out.println("You drink the potion and feel better.");
-					}
-					else if(player.getPotions()<=0)
-					{
-					System.out.println("You don't have any potions! You lost your turn while looking for them!");
-					}
-				}
-                else
-                    System.out.println("Not a valid choice! You lose your turn!");
-                    
-                 
-            }
-       else if(battleSpd<monster.getSpeed()){
-				if(monster.getHP()>0){
-                System.out.println("The "+monster.getName()+" attacks!");
-                for(int i = 0;i<it.length;i++){
-                    if(it[i]!=null){
-                        if(it[i].getDef()>0){
-                            defModifier+=it[i].getDef();
+                if(isDead==false){
+                    System.out.println("You are attacking!");
+                    System.out.println("What do you want to do? (Attack, Run, Potion)");
+                    choice = scan.nextLine();
+                    if(choice.equalsIgnoreCase("Attack")){
+                        for(int i = 0;i<it.length;i++){
+                            if(it[i]!=null){
+                                if(it[i].getStr()>0){
+                                    strModifier+=it[i].getStr();
+                                }
+                            }
+                        }
+                        dmgDone+=player.getStr();
+                        dmgDone+=strModifier;
+                        dmgDone-=monster.getDef();
+                        if(dmgDone>1)
+                            dmgDone = 1;
+                        dmgDone = dmgDone*-1;
+                        monster.setHP(dmgDone);
+                        System.out.println("The monster has "+monster.getHP()+" health remaining.");
+                        dmgDone=0;
+                        strModifier = 0;
+                        if(monster.getHP()<=0)
+                        {
+                            System.out.println("You defeated the "+monster.getName()+"!");
                         }
                     }
-                }
-                dmgTaken=monster.getStr();
-                dmgTaken-=player.getDef();
-                dmgTaken-=defModifier;
-                if(dmgTaken<1)
-                    dmgTaken=1;
-                dmgTaken=dmgTaken*-1;                
-                battleHp+=dmgTaken;
-                System.out.println("You have "+battleHp+" HP remaining");
-                dmgTaken = 0;
-                defModifier = 0;
-                
-                if(battleHp<=0){
-                    System.out.println("You were defeated...");
-                    isDead=true;
-				}
-			}
-                System.out.println("You are attacking!");
-                System.out.println("What do you want to do? (Attack, Run, Potion)");
-                choice = scan.nextLine();
-            if(choice.equalsIgnoreCase("Attack")){
-					for(int i = 0;i<it.length;i++){
-						if(it[i]!=null){
-							if(it[i].getStr()>0){
-                            strModifier+=it[i].getStr();
-							}
-						}
-					}
-                dmgDone+=player.getStr();
-                dmgDone+=strModifier;
-                dmgDone-=monster.getDef();
-                if(dmgDone>1)
-					dmgDone = 1;
-                dmgDone = dmgDone*-1;
-                monster.setHP(dmgDone);
-                System.out.println("The monster has "+monster.getHP()+" health remaining.");
-                dmgDone=0;
-                strModifier = 0;
-					if(monster.getHP()<=0)
-					{
-                    System.out.println("You defeated the "+monster.getName()+"!");
-					}
-				}
-            else if(choice.equalsIgnoreCase("Run"))
-            {
-                canRun = gen.nextInt(2);
-                if(canRun==0)
-                    System.out.println("Couldn't Run!");
-                else if(canRun==1){
-                    System.out.println("Barely got away!");
-                    ran = true;
+                    else if(choice.equalsIgnoreCase("Run"))
+                    {
+                        canRun = gen.nextInt(2);
+                        if(canRun==0)
+                            System.out.println("Couldn't Run!");
+                        else if(canRun==1){
+                            System.out.println("Barely got away!");
+                            ran = true;
+                        }
+                    }
+                    else if(choice.equalsIgnoreCase("potion"))
+                    {
+                        if(player.getPotions()>0)
+                        {
+                            player.setPotions(-1);
+                            battleHp+=5;
+                            System.out.println("You drink the potion and feel better.");
+                        }
+                        else if(player.getPotions()<=0)
+                        {
+                            System.out.println("You don't have any potions! You lost your turn while looking for them!");
+                        }
+                    }
+                    else
+                        System.out.println("Not a valid choice! You lose your turn!");
                 }
             }
-            else if(choice.equalsIgnoreCase("potion"))
-            {
-				if(player.getPotions()>0)
-				{
-					player.setPotions(-1);
-					battleHp+=5;
-					System.out.println("You drink the potion and feel better.");
-				}
-				else if(player.getPotions()<=0)
-				{
-					System.out.println("You don't have any potions! You lost your turn while looking for them!");
-				}
-			}
-            else
-                System.out.println("Not a valid choice! You lose your turn!");
+        }while(battleHp>0&&monster.getHP()>0&&!ran);
+        player.changeHp(battleHp);
 
-			}
-		}while(battleHp>0&&monster.getHP()>0&&!ran);
-		player.changeHp(battleHp);
-		
-		
-		//-------------------------------------------TREASURE-----------------------------------------------
-		int loot1=0;
-		int loot2=0;
-		int potions = 0;
-		int equipSlot = 0;
-		String equipItem = "";
-		boolean isEmpty = true;
-		boolean equipped = false;
-		
-		if(player.getHp()>0){
-			System.out.println("Press Enter to Continue");
-			choice = scan.nextLine();
-			System.out.println();
-			System.out.println("You find a treasure chest in the back of the room.");
-			loot1 = gen.nextInt(25);
-			do{
-			loot2 = gen.nextInt(25);
-			}while(loot1==loot2);
-			potions = gen.nextInt(6);
-			System.out.println("You found "+potions+" potions!");
-			System.out.println("You found a "+allItems.get(loot1).getStats(allItems.get(loot1)));
-			System.out.println("You found a "+allItems.get(loot2).getStats(allItems.get(loot2)));
-			player.setPotions(potions);
-			itemsFound.add(allItems.get(loot1));
-			itemsFound.add(allItems.get(loot2));
-			loot1=0;
-			loot2=0;
-			do{
-			System.out.println("Would you like to equip any items? (Y/N)");
-			choice=scan.nextLine();
-			if(choice.equalsIgnoreCase("Y")){
-				System.out.println();
-				System.out.println("Your inventory: ");
-				for(int i = 0;i<it.length;i++)
-				{
-					if(it[i]!=null){
-						System.out.print(it[i].getName()+", ");
-						isEmpty = false;
-					}
-					if(isEmpty){
-						System.out.println("Your inventory is empty.");
-						break;
-					}
-					
-				}	
-				System.out.println();
-				try{
-					equipped = false;
-				System.out.println("Which spot would you like to equip an item in? (1-5)");
-				input.reset();
-				equipSlot = input.nextInt();
-				equipSlot = equipSlot - 1;
-				
-				
-				System.out.println("Which item do you want to equip?");
-				equipItem = scan.nextLine();
-				for(int i = 0; i < itemsFound.size(); i++){
-					System.out.println(i);
-					if(i <= it.length && i<itemsFound.size() && it[i]!=null && it[i].getName().equalsIgnoreCase(equipItem)){
-						System.out.println("You've already equipped that item!");
-						equipped = true;
-						break;
-						}
-					else if(i<it.length&&i<itemsFound.size() && itemsFound.get(i).getName().equalsIgnoreCase(equipItem)){
-						it[equipSlot] = itemsFound.get(i);
-						System.out.println("Item successfully equipped");
-						equipped = true;
-						break;
-						}
-					}
-				if(!equipped){
-					System.out.println("You haven't found that item!");
-					}
-				
-			}
-			catch(InputMismatchException e){
-					System.out.println("Error: Not an inventory slot.");
-					equipSlot = 0;
-					input.next();
-			}
-			catch(ArrayIndexOutOfBoundsException e){
-					System.out.println("Error: Not able to equip item in requested spot.");
-					equipSlot = 0;
-					equipItem = "";
-					scan.next();
-					input.next();
-			}
-			}
-			else if(choice.equalsIgnoreCase("N")){
-				System.out.println("Moving on then...");
-			}
-			
-		}while(!choice.equalsIgnoreCase("n"));
-		
-		System.out.println();
-		System.out.println("Your inventory: ");
-		
-		for(int i = 0;i<it.length;i++)
-				{
-					if(it[i]!=null){
-						System.out.print(it[i].getName()+", ");
-						isEmpty = false;
-					}
-					if(isEmpty){
-						System.out.println("Your inventory is empty.");
-						break;
-					}
-					
-				}
-				System.out.println();
-		
-		}
-	}
-	
-	public static void createAllItems()
-	{	
-		//Index goes from 0-24, 25 total Items
-		
-		Items woodSword = new Items(1,0,0,0,"A simple wooden sword","Wooden Sword");
-		Items woodShield = new Items(0,0,1,0,"A flimsy wooden shield","Wooden Shield");
-		Items bow = new Items(2,-1,-1,0,"A small recurve bow","Bow");
-		Items chainmail = new Items(0,-1,3,2,"Sturdy Chainmail Armor","Chainmail Armor");
-		Items ironSword = new Items(3,0,1,0,"A strong iron sword","Iron Sword");
-		Items goodShield = new Items(0,0,3,2,"A sturdy iron kite shield","Iron Shield");
-		Items staff = new Items(4,1,0,3,"A powerful magical staff","Magic Staff");
-		Items goodStaff = new Items(5,2,1,2,"A very powerful magical staff","Powerful Staff");
-		Items greatStaff = new Items(6,2,1,3,"An incredibly powerful magical relic","Staff of Destruction");
-		Items magicShield = new Items(0,2,4,5,"A mysterious magical shield","Magic Shield");
-		Items mace = new Items(4,-3,0,0,"A big spiked mace","Mace");
-		Items chestplate = new Items(0,-1,4,5,"A hardened iron chestpiece","Iron Chestplate");
-		Items longbow = new Items(5,-3,0,0,"A powerful longbow","Longbow");
-		Items humanShield = new Items(0,-1,2,10,"Yeah, it's dark, but it's a human shield!","Human Shield");
-		Items rocks = new Items(1,0,0,0,"They're rocks. What do you expect?","Rocks");
-		Items speedBoots = new Items(0,5,0,0,"You don't know how, but they make you fast...","Boots of Speed");
-		Items doomBow = new Items(10,-4,-4,0,"Lots of damage. But it comes with a price...","Doom Bow");
-		Items heart = new Items(0,1,2,5,"A strange glowing heart-shaped locket","Heart Charm");
-		Items masterSword = new Items(5,0,1,0,"Good thing Link was kind enough to 'lend' it to you...","The Master Sword");
-		Items boneSword = new Items(3,0,0,0,"A sword made of...bones?","Bone Sword");
-		Items spear = new Items(2,0,0,0,"A spear. All there is to it.","Spear");
-		Items battleaxe = new Items(3,-2,0,0,"A mighty battleaxe","Battleaxe");
-		Items mom = new Items(3,3,3,5,"Momma always makes you do better! <3 (Don't ask how she's in a chest...)","Mom");
-		Items gun = new Items(5,-2,-2,0,"A gun?!?!","Gun?!?!");
-		Items knives = new Items(3,-1,-1,0,"They're knives. You throw them. (Hopefully accurately...)","Throwing Knives");
-		
-		allItems.add(woodSword);
-		allItems.add(woodShield);
-		allItems.add(bow);
-		allItems.add(chainmail);
-		allItems.add(ironSword);
-		allItems.add(goodShield);
-		allItems.add(staff);
-		allItems.add(goodStaff);
-		allItems.add(greatStaff);
-		allItems.add(magicShield);
-		allItems.add(mace);
-		allItems.add(chestplate);
-		allItems.add(longbow);
-		allItems.add(humanShield);
-		allItems.add(rocks);
-		allItems.add(speedBoots);
-		allItems.add(doomBow);
-		allItems.add(heart);
-		allItems.add(masterSword);
-		allItems.add(boneSword);
-		allItems.add(spear);
-		allItems.add(battleaxe);
-		allItems.add(mom);
-		allItems.add(gun);
-		allItems.add(knives);
-		}
-		
-		public static Monster spawnMob(Monster m){
-				if((map.getRow()==0&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==0))
-					m.setLvl(1);
-				else if((map.getRow()==2&&map.getCol()==0)||(map.getRow()==2&&map.getCol()==1)||(map.getRow()==2&&map.getCol()==2)||(map.getRow()==1&&map.getCol()==2)||(map.getRow()==0&&map.getCol()==2))
-					m.setLvl(2);
-				else if((map.getRow()==3&&map.getCol()==0)||(map.getRow()==3&&map.getCol()==1)||(map.getRow()==3&&map.getCol()==2)||(map.getRow()==3&&map.getCol()==3)||(map.getRow()==2&&map.getCol()==3)||(map.getRow()==1&&map.getCol()==3)||(map.getRow()==0&&map.getCol()==3))
-					m.setLvl(3);
-				else if((map.getRow()==4&&map.getCol()==0)||(map.getRow()==4&&map.getCol()==1)||(map.getRow()==4&&map.getCol()==2)||(map.getRow()==4&&map.getCol()==3))
-					m.setLvl(4);
-				else if((map.getCol()==4&&map.getRow()==0)||(map.getCol()==4&&map.getRow()==1)||(map.getCol()==4&&map.getRow()==2)||(map.getCol()==4&&map.getRow()==3))
-					m.setLvl(5);
-					
-					return m;
-		}
-		
-		public static void finalBoss(){
-			Monster monster = new Monster();
-			
-			it = player.getItems();
-			int whoAttacks = 2;
-			int canRun = 0;
-			boolean ran = false;
-			int dmgDone = 0;
-			int dmgTaken = 0;
-			int strModifier = 0;
-			int spdModifier = 0;
-			int defModifier = 0;
-			int HpModifier = 0;
-			int battleSpd = 0;
-			int battleHp = 0;
-			
-			System.out.println("You walk into a room lit only by torches.");
-			System.out.println("Suddenly, the doorway you came through collapses.");
-			System.out.println("\"Hello?\" you call out slightly shakily.");
-			System.out.println("From a dark opening in the far wall, a hulking shadow appears.");
-			System.out.println("Brandishing your "+it[0]+", you step forward.");
-			System.out.println("\"Who awakens me?!\" a deep voice booms.");
-			System.out.println("(Type your response)");
-			choice = scan.nextLine();
-			System.out.println("\"You call yourself "+choice+"?!\"");
-			System.out.println("\"Very well, "+choice+".\"");
-			System.out.println("He steps forward, revealing a huge humanoid figure, 10 feet tall, covered in scars and decorated with skulls.");
-			System.out.println("\"I am Ralk the Beheader.\" he booms. \"All tremble before me.\"");
-			System.out.println("\"Why have you awakened me?\"");
-			System.out.println("(Type your response)");
-			choice = scan.nextLine();
-			System.out.println("\"HA HA HA HA!! None have ever accomplished that feat\"");
-			System.out.println("\"You amuse me, mortal. However, you must die now.\"");
-			System.out.println("");
-			System.out.println("Ralk the Beheader appears!");
-			
-			System.out.println("Get Ready to Battle");
-        
+        //-------------------------------------------TREASURE-----------------------------------------------
+        int loot1=0;
+        int loot2=0;
+        int potions = 0;
+        int equipSlot = 0;
+        String equipItem = "";
+        boolean isEmpty = true;
+        boolean equipped = false;
+
+        if(player.getHp()>0){
+            System.out.println("Press Enter to Continue");
+            choice = scan.nextLine();
+            System.out.println();
+            System.out.println("You find a treasure chest in the back of the room.");
+            loot1 = gen.nextInt(25);
+            do{
+                loot2 = gen.nextInt(25);
+            }while(loot1==loot2);
+            potions = gen.nextInt(6);
+            System.out.println("You found "+potions+" potions!");
+            System.out.println("You found a "+allItems.get(loot1).getStats(allItems.get(loot1)));
+            System.out.println("You found a "+allItems.get(loot2).getStats(allItems.get(loot2)));
+            player.setPotions(potions);
+            itemsFound.add(allItems.get(loot1));
+            itemsFound.add(allItems.get(loot2));
+            loot1=0;
+            loot2=0;
+            System.out.println();
+            System.out.println("Your current stats:");
+            System.out.println("Battle Hp: "+battleHp);
+            System.out.println("Attack Strength: "+(player.getStr()+strModifier));
+            System.out.println("Defense: "+(player.getDef()+defModifier));
+            System.out.println("Speed: "+battleSpd);
+            System.out.println();
+            do{
+                System.out.println("Would you like to equip any items? (Y/N)");
+                choice=scan.nextLine();
+                if(choice.equalsIgnoreCase("Y")){
+                    System.out.println();
+                    System.out.println("Your inventory: ");
+                    for(int i = 0;i<it.length;i++)
+                    {
+                        if(it[i]!=null){
+                            System.out.println("Slot "+(i+1)+": "+it[i].getName());
+                            isEmpty = false;
+                        }
+                        if(it[i]==null)
+                            System.out.println("Slot "+(i+1)+": Empty");
+                    } 
+                    if(isEmpty){
+                            System.out.println("Your inventory is empty.");
+                    }
+                    System.out.println();
+                    try{
+                        equipped = false;
+                        System.out.println("Which spot would you like to equip an item in? (1-5)");
+                        input.reset();
+                        equipSlot = input.nextInt();
+                        equipSlot = equipSlot - 1;
+
+                        System.out.println("Which item do you want to equip?");
+                        equipItem = scan.nextLine();
+                        for(int i = 0; i < itemsFound.size(); i++){
+                            if(i < it.length && i<itemsFound.size() && it[i]!=null && it[i].getName().equalsIgnoreCase(equipItem)){
+                                System.out.println("You've already equipped that item!");
+                                equipped = true;
+                                break;
+                            }
+                            else if(i<itemsFound.size() && itemsFound.get(i).getName().equalsIgnoreCase(equipItem)){
+                                it[equipSlot] = itemsFound.get(i);
+                                System.out.println("Item successfully equipped");
+                                equipped = true;
+                                break;
+                            }
+                        }
+                        if(!equipped){
+                            System.out.println("You haven't found that item!");
+                        }
+
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println("Error: Not an inventory slot.");
+                        equipSlot = 0;
+                        input.next();
+                    }
+                    catch(ArrayIndexOutOfBoundsException e){
+                        System.out.println("Error: Not able to equip item in requested spot.");
+                        equipSlot = 0;
+                        equipItem = "";
+                        scan.next();
+                        input.next();
+                    }
+                }
+                else if(choice.equalsIgnoreCase("N")){
+                    System.out.println("Moving on then...");
+                }
+
+            }while(!choice.equalsIgnoreCase("n"));
+
+            System.out.println();
+            System.out.println("Your inventory: ");
+
+            for(int i = 0;i<it.length;i++)
+            {
+                if(it[i]!=null){
+                    System.out.println("Slot "+(i+1)+": "+it[i].getName());
+                    isEmpty = false;
+                }
+                if(it[i]==null){
+                    System.out.println("Slot "+(i+1)+": Empty");
+                }
+            }
+            if(isEmpty){
+                    System.out.println("Your inventory is empty.");
+            }
+            System.out.println();
+
+        }
+    }
+
+    public static void createAllItems()
+    {   
+        //Index goes from 0-24, 25 total Items
+
+        Items woodSword = new Items(1,0,0,0,"A simple wooden sword","Wooden Sword");
+        Items woodShield = new Items(0,0,1,0,"A flimsy wooden shield","Wooden Shield");
+        Items bow = new Items(2,-1,-1,0,"A small recurve bow","Bow");
+        Items chainmail = new Items(0,-1,3,2,"Sturdy Chainmail Armor","Chainmail Armor");
+        Items ironSword = new Items(3,0,1,0,"A strong iron sword","Iron Sword");
+        Items goodShield = new Items(0,0,3,2,"A sturdy iron kite shield","Iron Shield");
+        Items staff = new Items(4,1,0,3,"A powerful magical staff","Magic Staff");
+        Items goodStaff = new Items(5,2,1,2,"A very powerful magical staff","Powerful Staff");
+        Items greatStaff = new Items(6,2,1,3,"An incredibly powerful magical relic","Staff of Destruction");
+        Items magicShield = new Items(0,2,4,5,"A mysterious magical shield","Magic Shield");
+        Items mace = new Items(4,-3,0,0,"A big spiked mace","Mace");
+        Items chestplate = new Items(0,-1,4,5,"A hardened iron chestpiece","Iron Chestplate");
+        Items longbow = new Items(5,-3,0,0,"A powerful longbow","Longbow");
+        Items humanShield = new Items(0,-1,2,10,"Yeah, it's dark, but it's a human shield!","Human Shield");
+        Items rocks = new Items(1,0,0,0,"They're rocks. What do you expect?","Rocks");
+        Items speedBoots = new Items(0,5,0,0,"You don't know how, but they make you fast...","Boots of Speed");
+        Items doomBow = new Items(10,-4,-4,0,"Lots of damage. But it comes with a price...","Doom Bow");
+        Items heart = new Items(0,1,2,5,"A strange glowing heart-shaped locket","Heart Charm");
+        Items masterSword = new Items(5,0,1,0,"Good thing Link was kind enough to 'lend' it to you...","The Master Sword");
+        Items boneSword = new Items(3,0,0,0,"A sword made of...bones?","Bone Sword");
+        Items spear = new Items(2,0,0,0,"A spear. All there is to it.","Spear");
+        Items battleaxe = new Items(3,-2,0,0,"A mighty battleaxe","Battleaxe");
+        Items mom = new Items(3,3,3,5,"Momma always makes you do better! <3 (Don't ask how she's in a chest...)","Mom");
+        Items gun = new Items(5,-2,-2,0,"A gun?!?!","Gun");
+        Items knives = new Items(3,-1,-1,0,"They're knives. You throw them. (Hopefully accurately...)","Throwing Knives");
+
+        allItems.add(woodSword);
+        allItems.add(woodShield);
+        allItems.add(bow);
+        allItems.add(chainmail);
+        allItems.add(ironSword);
+        allItems.add(goodShield);
+        allItems.add(staff);
+        allItems.add(goodStaff);
+        allItems.add(greatStaff);
+        allItems.add(magicShield);
+        allItems.add(mace);
+        allItems.add(chestplate);
+        allItems.add(longbow);
+        allItems.add(humanShield);
+        allItems.add(rocks);
+        allItems.add(speedBoots);
+        allItems.add(doomBow);
+        allItems.add(heart);
+        allItems.add(masterSword);
+        allItems.add(boneSword);
+        allItems.add(spear);
+        allItems.add(battleaxe);
+        allItems.add(mom);
+        allItems.add(gun);
+        allItems.add(knives);
+    }
+
+    public static Monster spawnMob(Monster m){
+        if((map.getRow()==0&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==0))
+            m.setLvl(1);
+        else if((map.getRow()==2&&map.getCol()==0)||(map.getRow()==2&&map.getCol()==1)||(map.getRow()==2&&map.getCol()==2)||(map.getRow()==1&&map.getCol()==2)||(map.getRow()==0&&map.getCol()==2))
+            m.setLvl(2);
+        else if((map.getRow()==3&&map.getCol()==0)||(map.getRow()==3&&map.getCol()==1)||(map.getRow()==3&&map.getCol()==2)||(map.getRow()==3&&map.getCol()==3)||(map.getRow()==2&&map.getCol()==3)||(map.getRow()==1&&map.getCol()==3)||(map.getRow()==0&&map.getCol()==3))
+            m.setLvl(3);
+        else if((map.getRow()==4&&map.getCol()==0)||(map.getRow()==4&&map.getCol()==1)||(map.getRow()==4&&map.getCol()==2)||(map.getRow()==4&&map.getCol()==3))
+            m.setLvl(4);
+        else if((map.getCol()==4&&map.getRow()==0)||(map.getCol()==4&&map.getRow()==1)||(map.getCol()==4&&map.getRow()==2)||(map.getCol()==4&&map.getRow()==3))
+            m.setLvl(5);
+
+        return m;
+    }
+
+    public static void finalBoss(){
+        Monster monster = new Monster();
+
+        int whoAttacks = 2;
+        int canRun = 0;
+        boolean ran = false;
+        int dmgDone = 0;
+        int dmgTaken = 0;
+        int strModifier = 0;
+        int spdModifier = 0;
+        int defModifier = 0;
+        int HpModifier = 0;
+        int battleSpd = 0;
+        int battleHp = 0;
+
+        System.out.println("You walk into a room lit only by torches.");
+        System.out.println("Suddenly, the doorway you came through collapses.");
+        System.out.println("\"Hello?\" you call out slightly shakily.");
+        System.out.println("From a dark opening in the far wall, a hulking shadow appears.");
+        if(it[0]!=null)
+            System.out.println("Brandishing your "+it[0].getName()+", you step forward.");
+        else
+            System.out.println("You step forward bravely");
+        System.out.println("\"Who awakens me?!\" a deep voice booms.");
+        System.out.println("(Type your response)");
+        choice = scan.nextLine();
+        System.out.println("\"You call yourself "+choice+"?!\"");
+        System.out.println("\"Very well, "+choice+".\"");
+        System.out.println("He steps forward, revealing a huge humanoid figure, 10 feet tall, covered in scars and decorated with skulls.");
+        System.out.println("\"I am Ralk the Beheader.\" he booms. \"All tremble before me.\"");
+        System.out.println("\"Why have you awakened me?\"");
+        System.out.println("(Type your response)");
+        choice = scan.nextLine();
+        System.out.println("\"HA HA HA HA!! None have ever accomplished that feat\"");
+        System.out.println("\"You amuse me, mortal. However, you must die now.\"");
+        System.out.println("");
+        System.out.println("Ralk the Beheader appears!");
+
+        System.out.println("Get Ready to Battle");
+
         if(difficulty.equalsIgnoreCase("easy"))
-			player.changeHp(player.getMaxHp());
-        
+            player.changeHp(player.getMaxHp());
+
         for(int i = 0;i<it.length;i++){
-				if(it[i]!=null){
-                            if(it[i].getSpd()>0){
-                                spdModifier+=it[i].getSpd();
-                            }
+            if(it[i]!=null){
+                if(it[i].getSpd()>0){
+                    spdModifier+=it[i].getSpd();
                 }
-		}
-		for(int i = 0;i<it.length;i++){
-				if(it[i]!=null){
-                            if(it[i].getHp()>0){
-                                HpModifier+=it[i].getHp();
-                            }
+            }
+        }
+        for(int i = 0;i<it.length;i++){
+            if(it[i]!=null){
+                if(it[i].getHp()>0){
+                    HpModifier+=it[i].getHp();
                 }
-		}
-		battleSpd = player.getSpd()+spdModifier;
-		battleHp = player.getHp()+HpModifier;
-		
-		
+            }
+        }
+        battleSpd = player.getSpd()+spdModifier;
+        battleHp = player.getHp()+HpModifier;
+
         do{
             if(battleSpd>monster.getSpeed()){
-                System.out.println("You are attacking!");
-                System.out.println("What do you want to do? (Attack, Run, Potion)");
-                choice = scan.nextLine();
-                if(choice.equalsIgnoreCase("Attack"))
-                {
-                    for(int i = 0;i<it.length;i++){
-                        if(it[i]!=null){
-                            if(it[i].getStr()>0){
-                                strModifier+=it[i].getStr();
+                if(!isDead){
+                    System.out.println("You are attacking!");
+                    System.out.println("What do you want to do? (Attack, Run, Potion)");
+                    choice = scan.nextLine();
+                    if(choice.equalsIgnoreCase("Attack"))
+                    {
+                        for(int i = 0;i<it.length;i++){
+                            if(it[i]!=null){
+                                if(it[i].getStr()>0){
+                                    strModifier+=it[i].getStr();
+                                }
                             }
                         }
+                        dmgDone+=player.getStr();
+                        dmgDone+=strModifier;
+                        dmgDone-=monster.getDef();
+                        dmgDone = dmgDone*-1;
+                        monster.setHP(dmgDone);
+                        System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
+                        dmgDone=0;
+                        strModifier = 0;
+                        if(monster.getHP()<=0)
+                        {
+                            System.out.println("You defeated "+monster.getName()+"!");
+                        }
+
+                        if(monster.getHP()>0){
+                            System.out.println(monster.getName()+" attacks!");
+                            for(int i = 0;i<it.length;i++){
+                                if(it[i]!=null){
+                                    if(it[i].getDef()>0){
+                                        defModifier+=it[i].getDef();
+                                    }
+                                }
+                            }
+                            dmgTaken=monster.getStr();
+                            dmgTaken-=player.getDef();
+                            dmgTaken-=defModifier;
+                            if(dmgTaken<1)
+                                dmgTaken=1;
+                            dmgTaken=dmgTaken*-1;                
+                            battleHp+=dmgTaken;
+                            System.out.println("You have "+battleHp+" HP remaining");
+                            dmgTaken = 0;
+                            defModifier = 0;
+                            if(battleHp<=0)
+                                System.out.println("You were defeated...");
+                        }
                     }
-                    dmgDone+=player.getStr();
-                    dmgDone+=strModifier;
-                    dmgDone-=monster.getDef();
-                    dmgDone = dmgDone*-1;
-                    monster.setHP(dmgDone);
-                    System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
-                    dmgDone=0;
-                    strModifier = 0;
-                    if(monster.getHP()<=0)
+                    else if(choice.equalsIgnoreCase("Run"))
                     {
-                        System.out.println("You defeated "+monster.getName()+"!");
+                        System.out.println("There's nowhere to run!");
                     }
-                    
-                    if(monster.getHP()>0){
+                    else if(choice.equalsIgnoreCase("potion"))
+                    {
+                        if(player.getPotions()>0)
+                        {
+                            player.setPotions(-1);
+                            battleHp+=5;
+                            System.out.println("You drink the potion and feel better.");
+                        }
+                        else if(player.getPotions()<=0)
+                        {
+                            System.out.println("You don't have any potions! You lost your turn while looking for them!");
+                        }
+                    }
+                    else
+                        System.out.println("Not a valid choice! You lose your turn!");
+                }
+            }
+            else if(battleSpd<=monster.getSpeed()){
+                if(monster.getHP()>0){
                     System.out.println(monster.getName()+" attacks!");
                     for(int i = 0;i<it.length;i++){
                         if(it[i]!=null){
@@ -711,200 +770,159 @@ public class Game
                     System.out.println("You have "+battleHp+" HP remaining");
                     dmgTaken = 0;
                     defModifier = 0;
-                    if(battleHp<=0)
+
+                    if(battleHp<=0){
                         System.out.println("You were defeated...");
-					}
-                }
-                else if(choice.equalsIgnoreCase("Run"))
-                {
-                    System.out.println("There's nowhere to run!");
-                }
-                else if(choice.equalsIgnoreCase("potion"))
-				{
-					if(player.getPotions()>0)
-					{
-					player.setPotions(-1);
-					battleHp+=5;
-					System.out.println("You drink the potion and feel better.");
-					}
-					else if(player.getPotions()<=0)
-					{
-					System.out.println("You don't have any potions! You lost your turn while looking for them!");
-					}
-				}
-                else
-                    System.out.println("Not a valid choice! You lose your turn!");
-                    
-                 
-            }
-       else if(battleSpd<monster.getSpeed()){
-				if(monster.getHP()>0){
-                System.out.println(monster.getName()+" attacks!");
-                for(int i = 0;i<it.length;i++){
-                    if(it[i]!=null){
-                        if(it[i].getDef()>0){
-                            defModifier+=it[i].getDef();
-                        }
+                        isDead=true;
                     }
                 }
-                dmgTaken=monster.getStr();
-                dmgTaken-=player.getDef();
-                dmgTaken-=defModifier;
-                if(dmgTaken<1)
-                    dmgTaken=1;
-                dmgTaken=dmgTaken*-1;                
-                battleHp+=dmgTaken;
-                System.out.println("You have "+battleHp+" HP remaining");
-                dmgTaken = 0;
-                defModifier = 0;
-                
-                if(battleHp<=0){
-                    System.out.println("You were defeated...");
-                    isDead=true;
-				}
-			}
-                System.out.println("You are attacking!");
-                System.out.println("What do you want to do? (Attack, Run, Potion)");
-                choice = scan.nextLine();
-            if(choice.equalsIgnoreCase("Attack")){
-					for(int i = 0;i<it.length;i++){
-						if(it[i]!=null){
-							if(it[i].getStr()>0){
-                            strModifier+=it[i].getStr();
-							}
-						}
-					}
-                dmgDone+=player.getStr();
-                dmgDone+=strModifier;
-                dmgDone-=monster.getDef();
-                dmgDone = dmgDone*-1;
-                monster.setHP(dmgDone);
-                System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
-                dmgDone=0;
-                strModifier = 0;
-					if(monster.getHP()<=0)
-					{
-                    System.out.println("You defeated "+monster.getName()+"!");
-					}
-				}
-            else if(choice.equalsIgnoreCase("Run"))
-            {
-                System.out.println("There's nowhere to run!");
+                if(!isDead){
+                    System.out.println("You are attacking!");
+                    System.out.println("What do you want to do? (Attack, Run, Potion)");
+                    choice = scan.nextLine();
+                    if(choice.equalsIgnoreCase("Attack")){
+                        for(int i = 0;i<it.length;i++){
+                            if(it[i]!=null){
+                                if(it[i].getStr()>0){
+                                    strModifier+=it[i].getStr();
+                                }
+                            }
+                        }
+                        dmgDone+=player.getStr();
+                        dmgDone+=strModifier;
+                        dmgDone-=monster.getDef();
+                        dmgDone = dmgDone*-1;
+                        monster.setHP(dmgDone);
+                        System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
+                        dmgDone=0;
+                        strModifier = 0;
+                        if(monster.getHP()<=0)
+                        {
+                            System.out.println("You defeated "+monster.getName()+"!");
+                        }
+                    }
+                    else if(choice.equalsIgnoreCase("Run"))
+                    {
+                        System.out.println("There's nowhere to run!");
+                    }
+                    else if(choice.equalsIgnoreCase("potion"))
+                    {
+                        if(player.getPotions()>0)
+                        {
+                            player.setPotions(-1);
+                            battleHp+=5;
+                            System.out.println("You drink the potion and feel better.");
+                        }
+                        else if(player.getPotions()<=0)
+                        {
+                            System.out.println("You don't have any potions! You lost your turn while looking for them!");
+                        }
+                    }
+                    else
+                        System.out.println("Not a valid choice! You lose your turn!");
+                }
             }
-            else if(choice.equalsIgnoreCase("potion"))
-            {
-				if(player.getPotions()>0)
-				{
-					player.setPotions(-1);
-					battleHp+=5;
-					System.out.println("You drink the potion and feel better.");
-				}
-				else if(player.getPotions()<=0)
-				{
-					System.out.println("You don't have any potions! You lost your turn while looking for them!");
-				}
-			}
-            else
-                System.out.println("Not a valid choice! You lose your turn!");
+        }while(battleHp>0&&monster.getHP()>0&&!ran);
+        player.changeHp(battleHp);
 
-			}
-		}while(battleHp>0&&monster.getHP()>0&&!ran);
-		player.changeHp(battleHp);
-		
-		if(!isDead){
-		System.out.println("After what seems like ages of battle, you finally plunge your weapon into the behemoth's heart.");
-		System.out.println("Staggering backwards, he roars in pain, clutching at the weapon lodged in his massive chest.");
-		System.out.println("\"How...how...What ARE you?!\"");
-		System.out.println("(Type your response)");
-		choice = scan.nextLine();
-		System.out.println("\"You can't...possibly...be...\"");
-		System.out.println("With that, he finally collapses, dead.");
-		System.out.println("");
-		System.out.println("A door opens in the back of the room as he hits the floor, letting in bright sunlight.");
-		System.out.println("You walk through the doorway into another large room, lit by a hole in the ceiling with a ladder hanging from it.");
-		System.out.println("Inside is a singular chest on a pedestal, nicer than any others in the rest of the cave.");
-		System.out.println("Finally, you've found the treasure you fought so hard for.");
-		System.out.println("You walk up to the chest and open the lid.");
-		System.out.println("Press enter to continue.");
-		choice = scan.nextLine();
-		System.out.println("Inside");
-		choice = scan.nextLine();
-		System.out.println("You");
-		choice = scan.nextLine();
-		System.out.println("Find...");
-		choice = scan.nextLine();
-		System.out.println("4 Skittles.");
-		choice = scan.nextLine();
-		System.out.println("Not 5.");
-		choice = scan.nextLine();
-		System.out.println("Not 3.");
-		choice = scan.nextLine();
-		System.out.println("4. Skittles. (In surprisingly good condition)");
-		System.out.println("");
-		choice = scan.nextLine();
-		System.out.println("Oh, and you find tons of gold and jewels!");
-		System.out.println("And a bus pass to Morocco...");
-		choice = scan.nextLine();
-		System.out.println("");
-		System.out.println("Stuffing your pockets full, as well as your bag, you finally set off again.");
-		System.out.println("You climb the ladder, and finding yourself in a forest, once again look for a new adventure.");
-		System.out.println("");
-		System.out.println("Thank You For Playing!");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("CREDITS:");
-		System.out.println("(Remember: Press Enter to Continue!)");
-		System.out.println("");
-		System.out.println("~~PROGRAMMING~~");
-		choice = scan.nextLine();
-		System.out.println(" ~~~Ryan Lake~~~");
-		choice = scan.nextLine();
-		System.out.println(" ~~~Griffin Holloway~~~");
-		choice = scan.nextLine();
-		System.out.println("");
-		System.out.println("~~SPECIAL THANKS~~");
-		choice = scan.nextLine();
-		System.out.println(" ~~~Natalie Watts~~~");
-		choice = scan.nextLine();
-		System.out.println(" ~~~Craig Lake~~~");
-		choice = scan.nextLine();
-		System.out.println(" ~~~You, the Player!~~~");
-		
-		
-		}
-			
-			
-		}
-		
-		
-		//-------------------------GAMEPLAY----------------------------------------------------
-		
-		public static void gameplay()
-		{
-			do{
-				map.printMap();
-				moveRooms();		
-				executeRoom();
-			}while((!isDead)&&(map.getRow()!=4&&map.getCol()!=4));
-		
-		if(isDead){
-				System.out.println("You have failed in your quest.");
-				System.out.println("You Lose...");
-		}
-		if((!isDead)&&(map.getRow()!=4&&map.getCol()!=4)){
-				System.out.println("Are you sure you want to face the Final Boss? (Y/N)");
-				choice = scan.nextLine();
-				if(choice.equalsIgnoreCase("y")){
-				finalBoss();
-				}
-				else if(choice.equalsIgnoreCase("N")){
-				System.out.println("Don't come back until you're ready!");
-				map.enterRoom(4,3,4,4);
-				gameplay();
-				}
-		}
-		}
+        if(!isDead){
+            System.out.println();
+            System.out.println("After what seems like ages of battle, you finally plunge your weapon into the behemoth's heart.");
+            System.out.println("Staggering backwards, he roars in pain, clutching at the weapon lodged in his massive chest.");
+            System.out.println("\"How...how...What ARE you?!\"");
+            System.out.println("(Type your response)");
+            choice = scan.nextLine();
+            System.out.println("\"You can't...possibly...be...\"");
+            System.out.println("With that, he finally collapses, dead.");
+            System.out.println("");
+            System.out.println("A door opens in the back of the room as he hits the floor, letting in bright sunlight.");
+            System.out.println("You walk through the doorway into another large room, lit by a hole in the ceiling with a ladder hanging from it.");
+            System.out.println("Inside is a singular chest on a pedestal, nicer than any others in the rest of the cave.");
+            System.out.println("Finally, you've found the treasure you fought so hard for.");
+            System.out.println("You walk up to the chest and open the lid.");
+            System.out.println("Press enter to continue.");
+            choice = scan.nextLine();
+            System.out.println("Inside");
+            choice = scan.nextLine();
+            System.out.println("You");
+            choice = scan.nextLine();
+            System.out.println("Find...");
+            choice = scan.nextLine();
+            System.out.println("4 Skittles.");
+            choice = scan.nextLine();
+            System.out.println("Not 5.");
+            choice = scan.nextLine();
+            System.out.println("Not 3.");
+            choice = scan.nextLine();
+            System.out.println("4. Skittles. (In surprisingly good condition)");
+            System.out.println("");
+            choice = scan.nextLine();
+            System.out.println("Oh, and you find tons of gold and jewels!");
+            System.out.println("And a bus pass to Morocco...");
+            choice = scan.nextLine();
+            System.out.println("");
+            System.out.println("Stuffing your pockets full, as well as your bag, you finally set off again.");
+            System.out.println("You climb the ladder, and finding yourself in a forest, once again look for a new adventure.");
+            System.out.println("");
+            System.out.println("Thank You For Playing!");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("CREDITS:");
+            System.out.println("(Remember: Press Enter to Continue!)");
+            System.out.println("");
+            System.out.println("~~PROGRAMMING~~");
+            choice = scan.nextLine();
+            System.out.println(" ~~~Ryan Lake~~~");
+            choice = scan.nextLine();
+            System.out.println(" ~~~Griffin Holloway~~~");
+            choice = scan.nextLine();
+            System.out.println("");
+            System.out.println("~~SPECIAL THANKS~~");
+            choice = scan.nextLine();
+            System.out.println(" ~~~Natalie Watts~~~");
+            choice = scan.nextLine();
+            System.out.println(" ~~~Craig Lake~~~");
+            choice = scan.nextLine();
+            System.out.println(" ~~~You, the Player!~~~");
+            System.out.println();
+            System.out.println("THE END");
+
+        }
+
+    }
+
+    //-------------------------GAMEPLAY----------------------------------------------------
+
+    public static void gameplay()
+    {
+        boolean atBoss = false;
+        do{
+            map.printMap();
+            moveRooms();        
+            executeRoom();
+            if(map.getRow()==4&&map.getCol()==4)
+                atBoss = true;
+        }while(!isDead&&!atBoss);
+
+        if(isDead){
+            System.out.println("You have failed in your quest.");
+            System.out.println("You Lose...");
+        }
+        if((!isDead)&&(map.getRow()==4&&map.getCol()==4)){
+            System.out.println();
+            System.out.println("Are you sure you want to face the Final Boss? (Y/N)");
+            choice = scan.nextLine();
+            if(choice.equalsIgnoreCase("y")){
+                finalBoss();
+            }
+            else if(choice.equalsIgnoreCase("N")){
+                System.out.println("Don't come back until you're ready!");
+                map.enterRoom(4,3,4,4);
+                gameplay();
+            }
+        }
+    }
 }
 
 //To print items stats: System.out.println(allItems.get(IndexofdesiredItem)).getStats(allItems.get(IndexOfdesiredItem));

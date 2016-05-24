@@ -9,13 +9,13 @@ public class Monster
 {
     private int monsters;
     private int kind;
-    boolean niceHair;
+
     private String name;
     private int health;
     private int strength;
     private int speed;
     private int defense;
-    
+
     public Monster(int m)
     {
         kind = m;
@@ -26,19 +26,20 @@ public class Monster
         name = " ";
 
     }
-    
-	public Monster()
-	{
-		health = 30;
-		strength = 10;
-		speed = 10;
-		defense = 10;
-		name = "Ralk the Beheader";
-	}
+
+    public Monster()
+    {
+        kind = 100;
+        health = 20;
+        strength = 10;
+        speed = 50;
+        defense = 10;
+        name = "Ralk the Beheader";
+    }
 
     public Monster spawnMonster(Monster m)
     {
-        niceHair=false;
+        boolean niceHair=false;
         Random gen = new Random();
         monsters = gen.nextInt(2);
 
@@ -65,8 +66,6 @@ public class Monster
                         name="Scorpion";
                         niceHair=true;
                     } 
-                    else
-                        System.out.println("Error: Not a Valid Monster");
                 }while(!niceHair);
             }
             else if(kind==2)
@@ -90,8 +89,7 @@ public class Monster
                         name="Giant";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==3)
@@ -115,8 +113,7 @@ public class Monster
                         name="Apperition";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==4)
@@ -141,8 +138,7 @@ public class Monster
                         name="Orc";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==5)
@@ -167,8 +163,7 @@ public class Monster
                         name="Hell GateKeeper";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==6)
@@ -192,8 +187,7 @@ public class Monster
                         name="Werewolf";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==7)
@@ -208,7 +202,7 @@ public class Monster
                         name="Golem";
                         niceHair=true;
                     }
-                    if(monsters==1)
+                    else if(monsters==1)
                     {
                         health=25;
                         strength=7;
@@ -217,8 +211,7 @@ public class Monster
                         name="Cave Person";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==8)
@@ -243,8 +236,7 @@ public class Monster
                         name="Grey Wolf";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==9)
@@ -269,8 +261,7 @@ public class Monster
                         name="Hell GateKeeper";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==10)
@@ -294,8 +285,7 @@ public class Monster
                         name="Scorpion";
                         niceHair=true;
                     } 
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==11)
@@ -319,8 +309,7 @@ public class Monster
                         name="Giant";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==12)
@@ -344,8 +333,7 @@ public class Monster
                         name="Apperition";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==13)
@@ -370,8 +358,7 @@ public class Monster
                         name="Orc";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==14)
@@ -396,11 +383,10 @@ public class Monster
                         name="Hell GateKeeper";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
-             else if(kind==15)
+            else if(kind==15)
             {
                 do{
                     if(monsters==0)
@@ -421,8 +407,7 @@ public class Monster
                         name="Werewolf";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==16)
@@ -437,7 +422,7 @@ public class Monster
                         name="Golem";
                         niceHair=true;
                     }
-                    if(monsters==1)
+                    else if(monsters==1)
                     {
                         health=25;
                         strength=7;
@@ -446,8 +431,7 @@ public class Monster
                         name="Cave Person";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==17)
@@ -472,8 +456,7 @@ public class Monster
                         name="Grey Wolf";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
             else if(kind==18)
@@ -498,8 +481,7 @@ public class Monster
                         name="Hell GateKeeper";
                         niceHair=true;
                     }
-                    else
-                        System.out.println("Error: Not a Valid Monster");
+
                 }while(!niceHair);
             }
         }while(!niceHair);
@@ -535,9 +517,9 @@ public class Monster
     {
         return name;
     }
-    
+
     public void setLvl(int l)
     {
-		kind = l;
-		}
+        kind = l;
+    }
 }

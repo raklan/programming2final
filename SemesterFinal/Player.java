@@ -19,31 +19,31 @@ public class Player{
         type = t;
         numOfPotions = 0;
         if(type.equalsIgnoreCase("warrior")){
-			maxHp = 8;
-            hp=8;
-            str = 4;
-            def = 4;
-            spd = 4;
+			maxHp = 6;
+            hp=6;
+            str = 3;
+            def = 3;
+            spd = 3;
         }
         else if(type.equalsIgnoreCase("Scout")){
-			maxHp = 8;
-            hp = 8;
-            str = 3;
+			maxHp = 4;
+            hp = 4;
+            str = 2;
             def = 3;
             spd = 6;
         }
         else if(type.equalsIgnoreCase("Brute")){
-			maxHp = 10;
-            hp = 10;
-            str = 5;
-            def = 3;
-            spd = 2;
+			maxHp = 8;
+            hp = 8;
+            str = 4;
+            def = 2;
+            spd = 1;
         }
         else if(type.equalsIgnoreCase("Tank")){
-			maxHp = 12;
-            hp = 12;
-            str = 3;
-            def = 5;
+			maxHp = 10;
+            hp = 10;
+            str = 2;
+            def = 3;
             spd = 0;
         }
         else
@@ -98,16 +98,16 @@ public class Player{
 
     public String getStats(String t){
         if(t.equalsIgnoreCase("warrior")){
-            return "The Warrior has: \n HP: 8 \n Attack: 4 \n Defense: 4 \n Speed: 4";
+            return "The Warrior has: \n HP: 6 \n Attack: 3 \n Defense: 3 \n Speed: 3";
         }
         else if(t.equalsIgnoreCase("scout")){
-            return "The Scout has: \n HP: 8 \n Attack: 3 \n Defense: 3 \n Speed: 6";
+            return "The Scout has: \n HP: 4 \n Attack: 2 \n Defense: 3 \n Speed: 6";
         }
         else if(t.equalsIgnoreCase("brute")){
-            return "The Brute has: \n HP: 10 \n Attack: 5 \n Defense: 3 \n Speed: 2";
+            return "The Brute has: \n HP: 8 \n Attack: 4 \n Defense: 2 \n Speed: 1";
         }
         else if(t.equalsIgnoreCase("tank")){
-            return "The Tank has: \n HP: 12 \n Attack: 3 \n Defense: 5 \n Speed: 0";
+            return "The Tank has: \n HP: 10 \n Attack: 2 \n Defense: 3 \n Speed: 0";
         }       
         else
             return "Error: Could not find Class";
