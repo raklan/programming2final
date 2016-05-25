@@ -6,7 +6,7 @@ import java.util.*;
  * Main class and gameplay of The Cave
  * 
  * @author Ryan Lake
- * @version 1.0
+ * @version 1.1
  */
 public class Game
 {
@@ -285,6 +285,8 @@ public class Game
                             dmgDone = 1;
                         dmgDone = dmgDone*-1;
                         monster.setHP(dmgDone);
+                        if(monster.getHP()<0)
+							monster.setHPtoZero();
                         System.out.println("The monster has "+monster.getHP()+" health remaining.");
                         dmgDone=0;
                         if(monster.getHP()<=0)
@@ -388,6 +390,8 @@ public class Game
                             dmgDone = 1;
                         dmgDone = dmgDone*-1;
                         monster.setHP(dmgDone);
+                        if(monster.getHP()<0)
+							monster.setHPtoZero();
                         System.out.println("The monster has "+monster.getHP()+" health remaining.");
                         dmgDone=0;
                         strModifier = 0;
@@ -434,12 +438,21 @@ public class Game
         String equipItem = "";
         boolean isEmpty = true;
         boolean equipped = false;
+        boolean done = false;
+        int epicChance = 0;
 
-        if(player.getHp()>0){
+        if(player.getHp()>0&&!ran){
             System.out.println("Press Enter to Continue");
             choice = scan.nextLine();
             System.out.println();
             System.out.println("You find a treasure chest in the back of the room.");
+            epicChance = gen.nextInt(100)+1;
+            if(epicChance == 72){
+				Items swordOfAndrew = new Items(12,5,4,8,"This epic sword was thought to be lost. After all, it was in my bedroom.","The Blade of Andrew");
+				System.out.println("You found the Blade of Andrew!");
+				System.out.println(swordOfAndrew.getStats(swordOfAndrew));
+				itemsFound.add(swordOfAndrew);
+			}
             loot1 = gen.nextInt(25);
             do{
                 loot2 = gen.nextInt(25);
@@ -470,15 +483,40 @@ public class Game
                     {
                         if(it[i]!=null){
                             System.out.println("Slot "+(i+1)+": "+it[i].getName());
-                            isEmpty = false;
                         }
                         if(it[i]==null)
                             System.out.println("Slot "+(i+1)+": Empty");
                     } 
-                    if(isEmpty){
-                            System.out.println("Your inventory is empty.");
-                    }
                     System.out.println();
+                    System.out.println("Would you like to view an equipped item's stats? (Y/N)");
+                    choice = scan.nextLine();
+                    if(choice.equalsIgnoreCase("Y")){
+                    do{
+						System.out.println("Enter the name of desired item");
+						choice = scan.nextLine();
+						for(int i = 0; i <it.length; i++){
+							if(it[i]!=null&&it[i].getName().equalsIgnoreCase(choice))
+								System.out.println(it[i].getStats(it[i]));
+						}
+						if(it[0]==null&&it[1]==null&&it[2]==null&&it[3]==null&&it[4]==null)
+							System.out.println("Error: No items in inventory!");
+						System.out.println("Would you like to see another item's stats? (Y/N)");
+						choice = scan.nextLine();
+						if(choice.equalsIgnoreCase("Y"))
+							System.out.println("Ready to check another item");
+						else if(choice.equalsIgnoreCase("N"))
+							done = true;
+						else
+							System.out.println("Not a valid choice. Defaulting to 'NO'"); done = true;
+					}while(!done);
+					done = false;
+					}
+					else if(choice.equalsIgnoreCase("N"))
+						System.out.println("Moving on then...");
+					else
+						System.out.println("Not a valid choice. Defaulting to 'NO'");
+						
+					choice = "Y";
                     try{
                         equipped = false;
                         System.out.println("Which spot would you like to equip an item in? (1-5)");
@@ -522,6 +560,7 @@ public class Game
                 else if(choice.equalsIgnoreCase("N")){
                     System.out.println("Moving on then...");
                 }
+                System.out.println("You have "+player.getPotions()+" remaining");
 
             }while(!choice.equalsIgnoreCase("n"));
 
@@ -575,6 +614,14 @@ public class Game
         Items mom = new Items(3,3,3,5,"Momma always makes you do better! <3 (Don't ask how she's in a chest...)","Mom");
         Items gun = new Items(5,-2,-2,0,"A gun?!?!","Gun");
         Items knives = new Items(3,-1,-1,0,"They're knives. You throw them. (Hopefully accurately...)","Throwing Knives");
+        Items confetti = new Items(4,0,0,0,"For some reason a confetti popper seems to work wonders on monsters...","Confetti Popper");
+        Items ductTape = new Items(2,0,0,0,"Have you ever had this stuff ripped off? It hurts!","Duct Tape");
+        Items ductTapeArmor = new Items(0,-1,2,3,"Duct Tape fixes anything-including flesh wounds","Duct Tape Armor");
+        Items truthSword = new Items(4,4,4,4,"This blade is said to fell any monster","The Blade of Truth");
+        Items light = new Items(2,0,0,0,"THE LIGHT! IT BUUUUURRRRNNNNS!","The Light");
+        Items stick = new Items(1,0,-1,0,"I suppose you could poke them to death","Stick");
+        Items fireSpell = new Items(5,0,0,0,"Powerful fire magic","Fire Spell");
+        Items healthSpell = new Items(0,0,2,10,"This magic makes you feel amazing!","Health Spell");
 
         allItems.add(woodSword);
         allItems.add(woodShield);
@@ -604,6 +651,7 @@ public class Game
     }
 
     public static Monster spawnMob(Monster m){
+		boolean hi = false;
         if((map.getRow()==0&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==0))
             m.setLvl(1);
         else if((map.getRow()==2&&map.getCol()==0)||(map.getRow()==2&&map.getCol()==1)||(map.getRow()==2&&map.getCol()==2)||(map.getRow()==1&&map.getCol()==2)||(map.getRow()==0&&map.getCol()==2))
@@ -614,6 +662,8 @@ public class Game
             m.setLvl(4);
         else if((map.getCol()==4&&map.getRow()==0)||(map.getCol()==4&&map.getRow()==1)||(map.getCol()==4&&map.getRow()==2)||(map.getCol()==4&&map.getRow()==3))
             m.setLvl(5);
+        else if(map.getRow()==4 && map.getCol()==4)
+			hi = true;
 
         return m;
     }
@@ -698,6 +748,8 @@ public class Game
                         dmgDone-=monster.getDef();
                         dmgDone = dmgDone*-1;
                         monster.setHP(dmgDone);
+                        if(monster.getHP()<0)
+							monster.setHPtoZero();
                         System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
                         dmgDone=0;
                         strModifier = 0;
@@ -793,6 +845,8 @@ public class Game
                         dmgDone-=monster.getDef();
                         dmgDone = dmgDone*-1;
                         monster.setHP(dmgDone);
+                        if(monster.getHP()<0)
+							monster.setHPtoZero();
                         System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
                         dmgDone=0;
                         strModifier = 0;

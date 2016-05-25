@@ -492,6 +492,9 @@ public class Monster
     {
         health+=h;
     }
+    public void setHPtoZero(){
+		health = 0;
+	}
 
     public int getHP()
     {
