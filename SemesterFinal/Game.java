@@ -21,6 +21,8 @@ public class Game
     static ArrayList<Items> itemsFound = new ArrayList<Items>();
 
     static boolean isDead = false;
+    
+    static Items swordOfAndrew = new Items(12,5,4,8,"This epic sword was thought to be lost. After all, it was in my bedroom.","The Blade of Andrew");
 
     public static void main(String[]args){
         createAllItems();
@@ -50,7 +52,7 @@ public class Game
                 System.out.println("Otherwise, choose your difficulty. (Easy/Hard)");
             else{
                 System.out.println("Otherwise, choose your class");
-                System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
+                System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank \n Assassin");
                 System.out.println("Or type 'about (insert class here)' to see that class's stats");
             }
             choice = scan.nextLine();
@@ -63,11 +65,11 @@ public class Game
                 System.out.println("");
                 System.out.println("ABOUT CLASSES:");
                 System.out.println("Each class has its own set of stats. 15 total 'points' are distributed thoughout 4 stats:");
-                System.out.println(" HP - The amount of health you have.");
-                System.out.println(" Attack - How much damage you do");
-                System.out.println(" Defense - How much damage you DON'T take");
-                System.out.println(" Speed - Determines who attacks first");
-                System.out.println("   *Note: Minimum damage taken is 1 dmg");
+                System.out.println("  HP - The amount of health you have.");
+                System.out.println("  Attack - How much damage you do");
+                System.out.println("  Defense - How much damage you DON'T take");
+                System.out.println("  Speed - Determines who attacks first");
+                System.out.println("      *Note: Minimum damage taken or inflicted is 1 dmg");
                 System.out.println("");
                 System.out.println("ABOUT ITEMS:");
                 System.out.println("You can equip 5 items total. These items will affect your stats, and give you an edge in battle!");
@@ -95,7 +97,7 @@ public class Game
                     System.out.println("Not a valid choice. Defaulting to Easy..."); difficulty = "easy";
                 System.out.println("");
                 System.out.println("Now choose your Class.");
-                System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
+                System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank \n Assassin");
                 System.out.println("Or type 'about (insert class here)' to see that class's stats");
                 choice = scan.nextLine();
             }
@@ -105,7 +107,7 @@ public class Game
                     difficulty = "easy";  
                     System.out.println("Difficulty set to easy.");
                     System.out.println("Now choose your Class. ");
-                    System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
+                    System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank \n Assassin");
                     System.out.println("Or type 'about (insert class here)' to see that class's stats");
                     choice = scan.nextLine();
                     System.out.println();
@@ -115,7 +117,7 @@ public class Game
                     difficulty = "hard"; 
                     System.out.println("Difficulty set to hard.");
                     System.out.println("Now choose your Class. ");
-                    System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank");
+                    System.out.println("Your choices are: \n Warrior \n Scout \n Brute \n Tank \n Assassin");
                     System.out.println("Or type 'about (insert class here)' to see that class's stats");
                     choice = scan.nextLine();
                     System.out.println();
@@ -142,6 +144,11 @@ public class Game
                 System.out.println(info.getStats("tank"));
                 choice="";
             }
+            else if(choice.equalsIgnoreCase("about assassin")){
+                System.out.println("");
+                System.out.println(info.getStats("assassin"));
+                choice="";
+            }
             else if(choice.equalsIgnoreCase("warrior")){
                 player = new Player("warrior",it);
                 ok = true;
@@ -156,6 +163,10 @@ public class Game
             }
             else if(choice.equalsIgnoreCase("tank")){
                 player = new Player("tank",it);
+                ok = true;
+            }
+            else if(choice.equalsIgnoreCase("assassin")){
+                player = new Player("assassin",it);
                 ok = true;
             }
             else
@@ -286,7 +297,7 @@ public class Game
                         dmgDone = dmgDone*-1;
                         monster.setHP(dmgDone);
                         if(monster.getHP()<0)
-							monster.setHPtoZero();
+                            monster.setHPtoZero();
                         System.out.println("The monster has "+monster.getHP()+" health remaining.");
                         dmgDone=0;
                         if(monster.getHP()<=0)
@@ -335,6 +346,7 @@ public class Game
                             player.setPotions(-1);
                             battleHp+=5;
                             System.out.println("You drink the potion and feel better.");
+                            System.out.println("You have "+player.getPotions()+" potions remaining");
                         }
                         else if(player.getPotions()<=0)
                         {
@@ -391,7 +403,7 @@ public class Game
                         dmgDone = dmgDone*-1;
                         monster.setHP(dmgDone);
                         if(monster.getHP()<0)
-							monster.setHPtoZero();
+                            monster.setHPtoZero();
                         System.out.println("The monster has "+monster.getHP()+" health remaining.");
                         dmgDone=0;
                         strModifier = 0;
@@ -417,6 +429,7 @@ public class Game
                             player.setPotions(-1);
                             battleHp+=5;
                             System.out.println("You drink the potion and feel better.");
+                            System.out.println("You have "+player.getPotions()+" potions remaining");
                         }
                         else if(player.getPotions()<=0)
                         {
@@ -448,17 +461,16 @@ public class Game
             System.out.println("You find a treasure chest in the back of the room.");
             epicChance = gen.nextInt(100)+1;
             if(epicChance == 72){
-				Items swordOfAndrew = new Items(12,5,4,8,"This epic sword was thought to be lost. After all, it was in my bedroom.","The Blade of Andrew");
-				System.out.println("You found the Blade of Andrew!");
-				System.out.println(swordOfAndrew.getStats(swordOfAndrew));
-				itemsFound.add(swordOfAndrew);
-			}
-            loot1 = gen.nextInt(25);
+                System.out.println("You found the Blade of Andrew!");
+                System.out.println(swordOfAndrew.getStats(swordOfAndrew));
+                itemsFound.add(swordOfAndrew);
+            }
+            loot1 = gen.nextInt(35);
             do{
-                loot2 = gen.nextInt(25);
+                loot2 = gen.nextInt(35);
             }while(loot1==loot2);
             potions = gen.nextInt(6);
-            System.out.println("You found "+potions+" potions!");
+            System.out.println("You found "+potions+" potion(s)!");
             System.out.println("You found a "+allItems.get(loot1).getStats(allItems.get(loot1)));
             System.out.println("You found a "+allItems.get(loot2).getStats(allItems.get(loot2)));
             player.setPotions(potions);
@@ -492,31 +504,31 @@ public class Game
                     choice = scan.nextLine();
                     if(choice.equalsIgnoreCase("Y")){
                     do{
-						System.out.println("Enter the name of desired item");
-						choice = scan.nextLine();
-						for(int i = 0; i <it.length; i++){
-							if(it[i]!=null&&it[i].getName().equalsIgnoreCase(choice))
-								System.out.println(it[i].getStats(it[i]));
-						}
-						if(it[0]==null&&it[1]==null&&it[2]==null&&it[3]==null&&it[4]==null)
-							System.out.println("Error: No items in inventory!");
-						System.out.println("Would you like to see another item's stats? (Y/N)");
-						choice = scan.nextLine();
-						if(choice.equalsIgnoreCase("Y"))
-							System.out.println("Ready to check another item");
-						else if(choice.equalsIgnoreCase("N"))
-							done = true;
-						else
-							System.out.println("Not a valid choice. Defaulting to 'NO'"); done = true;
-					}while(!done);
-					done = false;
-					}
-					else if(choice.equalsIgnoreCase("N"))
-						System.out.println("Moving on then...");
-					else
-						System.out.println("Not a valid choice. Defaulting to 'NO'");
-						
-					choice = "Y";
+                        System.out.println("Enter the name of desired item");
+                        choice = scan.nextLine();
+                        for(int i = 0; i <it.length; i++){
+                            if(it[i]!=null&&it[i].getName().equalsIgnoreCase(choice))
+                                System.out.println(it[i].getStats(it[i]));
+                        }
+                        if(it[0]==null&&it[1]==null&&it[2]==null&&it[3]==null&&it[4]==null)
+                            System.out.println("Error: No items in inventory!");
+                        System.out.println("Would you like to see another item's stats? (Y/N)");
+                        choice = scan.nextLine();
+                        if(choice.equalsIgnoreCase("Y"))
+                            System.out.println("Ready to check another item");
+                        else if(choice.equalsIgnoreCase("N"))
+                            done = true;
+                        else
+                            System.out.println("Not a valid choice. Defaulting to 'NO'"); done = true;
+                    }while(!done);
+                    done = false;
+                    }
+                    else if(choice.equalsIgnoreCase("N"))
+                        System.out.println("Moving on then...");
+                    else
+                        System.out.println("Not a valid choice. Defaulting to 'NO'");
+                        
+                    choice = "Y";
                     try{
                         equipped = false;
                         System.out.println("Which spot would you like to equip an item in? (1-5)");
@@ -587,7 +599,7 @@ public class Game
 
     public static void createAllItems()
     {   
-        //Index goes from 0-24, 25 total Items
+        //Index goes from 0-34, 35 total Items
 
         Items woodSword = new Items(1,0,0,0,"A simple wooden sword","Wooden Sword");
         Items woodShield = new Items(0,0,1,0,"A flimsy wooden shield","Wooden Shield");
@@ -622,7 +634,11 @@ public class Game
         Items stick = new Items(1,0,-1,0,"I suppose you could poke them to death","Stick");
         Items fireSpell = new Items(5,0,0,0,"Powerful fire magic","Fire Spell");
         Items healthSpell = new Items(0,0,2,10,"This magic makes you feel amazing!","Health Spell");
-
+        Items imagination = new Items(0,0,0,0,"Just imagine you're hurting them!","Imagination");
+        Items dog = new Items(3,0,1,2,"C'mere boy! C'mere! No! Over here!","Fido");
+        
+        
+        
         allItems.add(woodSword);
         allItems.add(woodShield);
         allItems.add(bow);
@@ -648,10 +664,20 @@ public class Game
         allItems.add(mom);
         allItems.add(gun);
         allItems.add(knives);
+        allItems.add(confetti);
+        allItems.add(ductTape);
+        allItems.add(ductTapeArmor);
+        allItems.add(truthSword);
+        allItems.add(light);
+        allItems.add(stick);
+        allItems.add(fireSpell);
+        allItems.add(healthSpell);
+        allItems.add(imagination);
+        allItems.add(dog);
     }
 
     public static Monster spawnMob(Monster m){
-		boolean hi = false;
+        boolean hi = false;
         if((map.getRow()==0&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==1)||(map.getRow()==1&&map.getCol()==0))
             m.setLvl(1);
         else if((map.getRow()==2&&map.getCol()==0)||(map.getRow()==2&&map.getCol()==1)||(map.getRow()==2&&map.getCol()==2)||(map.getRow()==1&&map.getCol()==2)||(map.getRow()==0&&map.getCol()==2))
@@ -663,7 +689,7 @@ public class Game
         else if((map.getCol()==4&&map.getRow()==0)||(map.getCol()==4&&map.getRow()==1)||(map.getCol()==4&&map.getRow()==2)||(map.getCol()==4&&map.getRow()==3))
             m.setLvl(5);
         else if(map.getRow()==4 && map.getCol()==4)
-			hi = true;
+            hi = true;
 
         return m;
     }
@@ -749,7 +775,7 @@ public class Game
                         dmgDone = dmgDone*-1;
                         monster.setHP(dmgDone);
                         if(monster.getHP()<0)
-							monster.setHPtoZero();
+                            monster.setHPtoZero();
                         System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
                         dmgDone=0;
                         strModifier = 0;
@@ -846,7 +872,7 @@ public class Game
                         dmgDone = dmgDone*-1;
                         monster.setHP(dmgDone);
                         if(monster.getHP()<0)
-							monster.setHPtoZero();
+                            monster.setHPtoZero();
                         System.out.println("Ralk the Beheader has "+monster.getHP()+" health remaining.");
                         dmgDone=0;
                         strModifier = 0;

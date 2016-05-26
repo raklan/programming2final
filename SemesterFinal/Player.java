@@ -19,32 +19,39 @@ public class Player{
         type = t;
         numOfPotions = 0;
         if(type.equalsIgnoreCase("warrior")){
-			maxHp = 6;
+            maxHp = 6;
             hp=6;
             str = 3;
             def = 3;
             spd = 3;
         }
         else if(type.equalsIgnoreCase("Scout")){
-			maxHp = 4;
+            maxHp = 4;
             hp = 4;
             str = 2;
             def = 3;
             spd = 6;
         }
         else if(type.equalsIgnoreCase("Brute")){
-			maxHp = 8;
+            maxHp = 8;
             hp = 8;
             str = 4;
             def = 2;
             spd = 1;
         }
         else if(type.equalsIgnoreCase("Tank")){
-			maxHp = 10;
+            maxHp = 10;
             hp = 10;
             str = 2;
             def = 3;
             spd = 0;
+        }
+        else if(type.equalsIgnoreCase("Assassin")){
+            maxHp = 4;
+            hp = 4;
+            str = 6;
+            def = 2;
+            spd = 3;
         }
         else
             System.out.println("Error: Not a Valid Class");
@@ -86,15 +93,15 @@ public class Player{
     }
     
     public int getMaxHp(){
-		return maxHp;
-	}
-	public void setPotions(int n)
-	{
-		numOfPotions += n;
-	}
-	public int getPotions(){
-		return numOfPotions;
-	}
+        return maxHp;
+    }
+    public void setPotions(int n)
+    {
+        numOfPotions += n;
+    }
+    public int getPotions(){
+        return numOfPotions;
+    }
 
     public String getStats(String t){
         if(t.equalsIgnoreCase("warrior")){
@@ -108,7 +115,9 @@ public class Player{
         }
         else if(t.equalsIgnoreCase("tank")){
             return "The Tank has: \n HP: 10 \n Attack: 2 \n Defense: 3 \n Speed: 0";
-        }       
+        }
+        else if(t.equalsIgnoreCase("Assassin"))
+            return "The Assassin has: \n HP: 4 \n Attack: 6 \n Defense: 2 \n Speed: 3";
         else
             return "Error: Could not find Class";
     }   
