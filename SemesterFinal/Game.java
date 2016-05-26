@@ -6,7 +6,7 @@ import java.util.*;
  * Main class and gameplay of The Cave
  * 
  * @author Ryan Lake
- * @version 1.1
+ * @version 1.2
  */
 public class Game
 {
@@ -484,6 +484,7 @@ public class Game
             System.out.println("Attack Strength: "+(player.getStr()+strModifier));
             System.out.println("Defense: "+(player.getDef()+defModifier));
             System.out.println("Speed: "+battleSpd);
+            System.out.println("Potions: "+player.getPotions());
             System.out.println();
             do{
                 System.out.println("Would you like to equip any items? (Y/N)");
@@ -572,7 +573,6 @@ public class Game
                 else if(choice.equalsIgnoreCase("N")){
                     System.out.println("Moving on then...");
                 }
-                System.out.println("You have "+player.getPotions()+" remaining");
 
             }while(!choice.equalsIgnoreCase("n"));
 
