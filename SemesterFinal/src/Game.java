@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.*;
 /**
- * Main class and gameplay of The Cave
+ * Game class and gameplay of The Cave
  * 
  * @author Ryan Lake
  * @version 1.2
